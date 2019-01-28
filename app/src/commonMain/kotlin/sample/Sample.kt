@@ -11,7 +11,7 @@ expect object Platform {
 fun hello(): String = "Hello from ${Platform.name}"
 
 class Proxy {
-    fun proxyHello() = hello()
+    fun proxyHello() = "${hello()}, checkMe: ${Sample().checkMe()}"
 }
 
 fun main() {
