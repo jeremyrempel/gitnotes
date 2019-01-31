@@ -12,3 +12,10 @@ The system is broken down into 3 modules:
 
 - iOS: Kotlin Native, Swift
 - Android: Kotlin
+
+## Build Status
+
+|  Android | iOS  |
+| -- | -- |
+| [![Android](https://app.bitrise.io/app/a1fb62c1f3a2d78a/status.svg?token=06GgXh7eQGjS2SxV3_Cf-A&branch=master)](https://app.bitrise.io/app/a1fb62c1f3a2d78a) |  [![Build Status](https://app.bitrise.io/app/4f777e06d333db89/status.svg?token=gNb9AhJrCLmRBwL5uX81fw&branch=master)](https://app.bitrise.io/app/4f777e06d333db89) |
+
