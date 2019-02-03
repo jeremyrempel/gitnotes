@@ -1,10 +1,10 @@
 package sample
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.GithubService
 import com.github.jeremyrempel.gitnotes.api.apiHost
@@ -14,7 +14,6 @@ import com.github.jeremyrempel.gitnotes.presentation.ReadmeActions
 import com.github.jeremyrempel.gitnotes.presentation.ReadmePresenter
 import com.github.jeremyrempel.gitnotes.presentation.ReadmeView
 import kotlinx.coroutines.Dispatchers
-import java.nio.charset.StandardCharsets
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), ReadmeView {
