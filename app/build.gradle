@@ -2,6 +2,10 @@ apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
+
+// CocoaPods requires the podspec to have a version.
+version = "1.0"
 
 android {
     compileSdkVersion 28
@@ -44,14 +48,36 @@ kotlin {
 //        configure([ios64Main]) {
 //            dependsOn iosMain
 //        }
+
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+                implementation "io.ktor:ktor-client-core:$ktor_version"
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation "io.ktor:ktor-client-ios:$ktor_version"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+            }
+        }
+    }
+
+    cocoapods {
+        // Configure fields required by CocoaPods.
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
     }
 }
 
 dependencies {
-    commonMainImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
-    commonMainImplementation "io.ktor:ktor-client-core:$ktor_version"
-    commonMainImplementation "io.ktor:ktor-client-json:$ktor_version"
-    commonMainImplementation "org.kodein.di:kodein-di-erased:$kodein_version"
+//    commonMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+//    commonMainImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
+//    commonMainImplementation "io.ktor:ktor-client-core:$ktor_version"
+//    commonMainImplementation "io.ktor:ktor-client-json:$ktor_version"
+//    commonMainImplementation "org.kodein.di:kodein-di-erased:$kodein_version"
 
     androidMainImplementation fileTree(dir: 'libs', include: ['*.jar'])
     androidMainImplementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
@@ -64,15 +90,19 @@ dependencies {
     androidMainImplementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-    iosMainImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutines_version"
-    iosMainImplementation "io.ktor:ktor-client-ios:$ktor_version"
-    iosMainImplementation "io.ktor:ktor-client-json-native:$ktor_version"
-    iosMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+//    iosMainImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutines_version"
+//    iosMainImplementation "io.ktor:ktor-client-ios:$ktor_version"
+//    iosMainImplementation "io.ktor:ktor-client-json-native:$ktor_version"
+//    iosMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
 
     commonTestImplementation 'org.jetbrains.kotlin:kotlin-test'
     commonTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+
+//    implementation 'junit:junit:4.12'
+
 }
 
 // This task attaches native framework built from ios module to Xcode project

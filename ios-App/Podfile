@@ -1,0 +1,8 @@
+# Either use_frameworks! or use_modular_headers! must be specified.
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'ios-App' do
+    pod 'app', :path => '../app'
+end

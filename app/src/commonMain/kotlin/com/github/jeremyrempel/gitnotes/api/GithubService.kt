@@ -1,5 +1,6 @@
 package com.github.jeremyrempel.gitnotes.api
 
+import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import com.github.jeremyrempel.gitnotes.api.data.ReadMeResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
@@ -13,6 +14,10 @@ class GithubService(
     private val repo: String
 ) :
     GithubApi {
+
+    override suspend fun getContents(): List<ContentsResponse> = client.get {
+        apiUrl("repos/$user/$repo/contents")
+    }
 
     override suspend fun getReadme(): ReadMeResponse = client.get {
         apiUrl("repos/$user/$repo/readme")
