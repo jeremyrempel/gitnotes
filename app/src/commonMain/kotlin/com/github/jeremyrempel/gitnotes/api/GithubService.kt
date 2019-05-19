@@ -19,7 +19,9 @@ class GithubService(
 
     override suspend fun getContents(): List<ContentsResponse> {
         val stringResponse = client.get<String> { apiUrl("repos/$user/$repo/contents") }
-        return Json.nonstrict.parse(ContentsResponse.serializer().list, stringResponse)
+        val serializer = ContentsResponse.serializer().list
+
+        return Json.nonstrict.parse(serializer, stringResponse)
     }
 
     override suspend fun getReadme(): ReadMeResponse = client.get {
