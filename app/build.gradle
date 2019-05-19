@@ -45,9 +45,6 @@ kotlin {
         configure([iosMain]) {
             dependsOn commonMain
         }
-        configure([androidTest]) {
-            dependsOn commonTest
-        }
 
 //        configure([ios64Main]) {
 //            dependsOn iosMain
@@ -80,7 +77,6 @@ kotlin {
         }
         androidTest.dependencies {
             implementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
-            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
             implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
         }
