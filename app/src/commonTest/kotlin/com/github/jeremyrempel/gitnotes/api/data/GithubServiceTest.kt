@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.runBlocking
 
 @InternalAPI
 class GithubServiceTest {
