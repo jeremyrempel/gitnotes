@@ -6,6 +6,8 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.list
 
 class GithubService(
     private val client: HttpClient,
@@ -15,8 +17,9 @@ class GithubService(
 ) :
     GithubApi {
 
-    override suspend fun getContents(): List<ContentsResponse> = client.get {
-        apiUrl("repos/$user/$repo/contents")
+    override suspend fun getContents(): List<ContentsResponse> {
+        val stringResponse = client.get<String> { apiUrl("repos/$user/$repo/contents") }
+        return Json.nonstrict.parse(ContentsResponse.serializer().list, stringResponse)
     }
 
     override suspend fun getReadme(): ReadMeResponse = client.get {

@@ -45,23 +45,48 @@ kotlin {
         configure([iosMain]) {
             dependsOn commonMain
         }
+        configure([androidTest]) {
+            dependsOn commonTest
+        }
+
 //        configure([ios64Main]) {
 //            dependsOn iosMain
 //        }
 
-        commonMain {
-            dependencies {
-                implementation kotlin('stdlib-common')
-                implementation "io.ktor:ktor-client-core:$ktor_version"
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
-            }
+        commonMain.dependencies {
+            implementation kotlin('stdlib-common')
+            implementation "io.ktor:ktor-client-core:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+            implementation "io.ktor:ktor-client-json:$ktor_version"
         }
-        iosMain {
-            dependencies {
-                implementation "io.ktor:ktor-client-ios:$ktor_version"
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
-            }
+        commonTest.dependencies {
+            implementation "io.ktor:ktor-client-mock:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
+            implementation 'org.jetbrains.kotlin:kotlin-test'
+            implementation 'org.jetbrains.kotlin:kotlin-test-junit'
+        }
+        androidMain.dependencies {
+            implementation fileTree(dir: 'libs', include: ['*.jar'])
+            implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+            implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+            implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+            implementation "com.github.bumptech.glide:glide:$glide_version"
+//                kapt "com.github.bumptech.glide:compiler:$glide_version"
+        }
+        androidTest.dependencies {
+            implementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+        }
+        iosMain.dependencies {
+            implementation "io.ktor:ktor-client-ios:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
         }
     }
 
@@ -79,27 +104,13 @@ dependencies {
 //    commonMainImplementation "io.ktor:ktor-client-json:$ktor_version"
 //    commonMainImplementation "org.kodein.di:kodein-di-erased:$kodein_version"
 
-    androidMainImplementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidMainImplementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
-    androidMainImplementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
-    androidMainImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    androidMainImplementation "io.ktor:ktor-client-android:$ktor_version"
-    androidMainImplementation "io.ktor:ktor-client-json-jvm:$ktor_version"
-    androidMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
-
-    androidMainImplementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
 //    iosMainImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutines_version"
 //    iosMainImplementation "io.ktor:ktor-client-ios:$ktor_version"
 //    iosMainImplementation "io.ktor:ktor-client-json-native:$ktor_version"
 //    iosMainImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
 
-    commonTestImplementation 'org.jetbrains.kotlin:kotlin-test'
-    commonTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
-
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
 
 //    implementation 'junit:junit:4.12'
 
