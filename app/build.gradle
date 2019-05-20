@@ -32,10 +32,12 @@ kotlin {
     targets {
         fromPreset(presets.android, 'android')
 
-        // This preset is for iPhone emulator
-        // Switch here to presets.iosArm64 (or iosArm32) to build library for iPhone device
-        fromPreset(presets.iosX64, 'ios') {
-            compilations.main.outputKinds('FRAMEWORK')
+        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")   \
+                                ? presets.iosArm64 : presets.iosX64
+
+        fromPreset(iOSTarget, 'ios') {
+            compilations.main.outputKinds("FRAMEWORK")
+            compilations.test.outputKinds("FRAMEWORK")
         }
     }
     sourceSets {
@@ -83,6 +85,11 @@ kotlin {
         iosMain.dependencies {
             implementation "io.ktor:ktor-client-ios:$ktor_version"
             implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+        }
+        iosTest.dependencies {
+            implementation "io.ktor:ktor-client-mock-native:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
         }
     }
 
