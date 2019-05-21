@@ -21,5 +21,5 @@ The system is broken down into 3 modules:
 
 |  Android | iOS  |
 | -- | -- |
-| [![Android](https://app.bitrise.io/app/a1fb62c1f3a2d78a/status.svg?token=06GgXh7eQGjS2SxV3_Cf-A&branch=master)](https://app.bitrise.io/app/a1fb62c1f3a2d78a) |  [![Build Status](https://app.bitrise.io/app/4f777e06d333db89/status.svg?token=gNb9AhJrCLmRBwL5uX81fw&branch=master)](https://app.bitrise.io/app/4f777e06d333db89) |
+| ![Android Build Status](https://build.appcenter.ms/v0.1/apps/69b50f93-d6a3-436f-9f59-b9774e7ce929/branches/master/badge) | ![iOS Build Status](https://build.appcenter.ms/v0.1/apps/b56b1aed-2605-4d96-80c8-34eeeeb554ae/branches/master/badge) |
 
