@@ -15,12 +15,12 @@ import kotlinx.coroutines.runBlocking
 @InternalAPI
 class GithubServiceTest {
 
+    val endPoint = "http://localhost"
+    val user = "testuser"
+    val repo = "testrepo"
+
     @Test
     fun `testing ktor service request and response success`() {
-
-        val endPoint = "http://localhost"
-        val user = "testuser"
-        val repo = "testrepo"
 
         val resultData = listOf(
             ContentsResponse("name", "type", 100, "http://github.com/blah")
@@ -42,6 +42,21 @@ class GithubServiceTest {
         runBlocking {
             val testResult = GithubService(client, endPoint, user, repo).getContents()
             assertEquals(resultData, testResult)
+        }
+    }
+
+    @Test(expected = Exception::class)
+    fun `test failure throws exception`() {
+        val client = HttpClient(MockEngine) {
+            engine {
+                addHandler {
+                    error("fail")
+                }
+            }
+        }
+
+        runBlocking {
+            GithubService(client, endPoint, user, repo).getContents()
         }
     }
 }
