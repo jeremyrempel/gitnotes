@@ -63,7 +63,7 @@ kotlin {
             implementation "io.ktor:ktor-client-mock:$ktor_version"
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-            implementation "io.mockk:mockk-common:1.9.3"
+            implementation "io.mockk:mockk-common:$mockk_version"
 
             implementation 'org.jetbrains.kotlin:kotlin-test'
             implementation 'org.jetbrains.kotlin:kotlin-test-junit'
@@ -82,7 +82,7 @@ kotlin {
             implementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
             implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-            implementation "io.mockk:mockk:1.9.3"
+            implementation "io.mockk:mockk:$mockk_version"
         }
         iosMain.dependencies {
             implementation "io.ktor:ktor-client-ios:$ktor_version"
