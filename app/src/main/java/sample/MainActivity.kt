@@ -25,15 +25,9 @@ class MainActivity : AppCompatActivity(), ContentsView {
         if (isLoading) {
             loadingView.visibility = View.VISIBLE
             text.visibility = View.GONE
-//            button.visibility = View.GONE
-//            imageView.visibility = View.GONE
-//            text.visibility = View.GONE
         } else {
             loadingView.visibility = View.GONE
             text.visibility = View.VISIBLE
-//            button.visibility = View.VISIBLE
-//            imageView.visibility = View.VISIBLE
-//            text.visibility = View.VISIBLE
         }
     }
 

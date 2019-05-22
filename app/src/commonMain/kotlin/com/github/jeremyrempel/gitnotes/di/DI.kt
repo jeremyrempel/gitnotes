@@ -4,8 +4,6 @@ import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import io.ktor.client.HttpClient
-import io.ktor.http.Url
-import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
 
