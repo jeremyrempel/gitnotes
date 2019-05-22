@@ -17,6 +17,12 @@ The system is broken down into 3 modules:
 - iOS: Kotlin Native, Swift
 - Android: Kotlin
 
+## Http Client
+
+- Utilizes Jetbrains Ktor client. Provided in common module as ktor-client-core
+- Android implementation provided OKHttp via ktor-client-okhttp dependency
+- iOS implementation provided via NSUrlSession via ktor-client-ios
+
 ## Build Status
 
 |  Android | iOS  |
