@@ -1,7 +1,7 @@
 # Either use_frameworks! or use_modular_headers! must be specified.
 use_frameworks!
 
-platform :ios, '12.3'
+platform :ios, '12.2'
 
 target 'ios-App' do
     pod 'app', :path => '../app'

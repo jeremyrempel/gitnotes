@@ -9,13 +9,36 @@
 import UIKit
 import app
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, ContentsView {
+    
+    var isUpdating: Bool = false
+    
+    func showError(error: KotlinThrowable) {
+        
+    }
+    
+    func onUpdate(data: [ContentsResponse]) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        //        let blah =  SampleKt.hello()
+        
+        // todo dependency injection
+        let user:String = "jeremyrempel"
+        let repo:String = "gitnotestest"
+        let client:Ktor_client_coreHttpClient = DIKt.getHttpClient()
+        let apiUrl:String = "https://api.github.com"
+        
+        let service: GithubApi = DIKt.getService(user: user, repo: repo, client: client, apiUrl: apiUrl)
+ 
+        
+//        let view =
+//
+//        let actions = DIKt.getActions(coroutineContext: <#T##KotlinCoroutineContext#>, view: <#T##ContentsView#>, service: <#T##GithubApi#>)
+//
         
         let result = JsonTest().getPerson()
         
