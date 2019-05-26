@@ -6,7 +6,7 @@
 //  Copyright © 2019 Jeremy Rempel. All rights reserved.
 //
 
-import app
+import lib
 
 public class UI: Kotlinx_coroutines_coreCoroutineDispatcher {
     

@@ -4,5 +4,5 @@ use_frameworks!
 platform :ios, '12.2'
 
 target 'ios-App' do
-    pod 'app', :path => '../app'
+    pod 'lib', :path => '../lib'
 end

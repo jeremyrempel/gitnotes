@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import app
+import lib
 
 class ViewController: UIViewController, ContentsView {
     
