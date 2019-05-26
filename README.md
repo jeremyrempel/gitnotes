@@ -27,5 +27,5 @@ The system is broken down into 3 modules:
 
 |  Android | iOS  |
 | -- | -- |
-| ![Android Build Status](https://build.appcenter.ms/v0.1/apps/69b50f93-d6a3-436f-9f59-b9774e7ce929/branches/master/badge) | ![iOS Build Status](https://build.appcenter.ms/v0.1/apps/b56b1aed-2605-4d96-80c8-34eeeeb554ae/branches/master/badge) |
+| ![Android Build Status](https://build.appcenter.ms/v0.1/apps/33fa0e88-79c5-4c08-b67a-a6c55bf56ab5/branches/master/badge) | ![iOS Build Status](https://build.appcenter.ms/v0.1/apps/b56b1aed-2605-4d96-80c8-34eeeeb554ae/branches/master/badge) |
 
