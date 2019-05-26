@@ -30,10 +30,8 @@ class GithubService(
         apiUrl("repos/$user/$repo/readme")
     }
 
-    private fun HttpRequestBuilder.apiUrl(path: String) {
-        url {
-            takeFrom(endPoint)
-            encodedPath = path
-        }
+    private fun HttpRequestBuilder.apiUrl(path: String) = url {
+        takeFrom(endPoint)
+        encodedPath = path
     }
 }

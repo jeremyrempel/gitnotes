@@ -78,6 +78,7 @@ kotlin {
             implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
             implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
             implementation "com.github.bumptech.glide:glide:$glide_version"
+            implementation "androidx.recyclerview:recyclerview:$androidx_recycler_version"
 
 
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
