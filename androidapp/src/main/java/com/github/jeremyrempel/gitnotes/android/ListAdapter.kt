@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.ListAdapter.MyViewHolder
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import kotlinx.android.synthetic.main.row_list.view.*
-import sample.R
 
 class ListAdapter(val callback: (ContentsResponse) -> Unit) :
     ListAdapter<ContentsResponse, MyViewHolder>(TaskDiffCallback()) {
@@ -35,5 +34,3 @@ class ListAdapter(val callback: (ContentsResponse) -> Unit) :
             oldItem == newItem
     }
 }
-
-

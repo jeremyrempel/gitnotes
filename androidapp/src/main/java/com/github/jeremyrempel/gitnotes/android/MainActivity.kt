@@ -13,9 +13,7 @@ import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.row_list.*
 import kotlinx.coroutines.Dispatchers
-import sample.R
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), ContentsView {

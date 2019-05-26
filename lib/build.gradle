@@ -1,6 +1,6 @@
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 
@@ -10,7 +10,6 @@ version = "1.0"
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.github.jeremyrempel.gitnotes"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -20,6 +19,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+        }
+        debug {
+            // MPP libraries don't currently get this resolution automatically
+            matchingFallbacks = ['release']
         }
     }
 
@@ -46,17 +49,6 @@ kotlin {
         }
     }
     sourceSets {
-        configure([androidMain]) {
-            dependsOn commonMain
-        }
-        configure([iosMain]) {
-            dependsOn commonMain
-        }
-
-//        configure([ios64Main]) {
-//            dependsOn iosMain
-//        }
-
         commonMain.dependencies {
             implementation kotlin('stdlib-common')
             implementation "io.ktor:ktor-client-core:$ktor_version"
@@ -75,18 +67,10 @@ kotlin {
         }
         androidMain.dependencies {
             implementation fileTree(dir: 'libs', include: ['*.jar'])
-            implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
-            implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
-            implementation "com.github.bumptech.glide:glide:$glide_version"
-            implementation "androidx.recyclerview:recyclerview:$androidx_recycler_version"
-
 
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-            implementation "io.ktor:ktor-client-okhttp:$ktor_version"
             implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
             implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
-
-//                kapt "com.github.bumptech.glide:compiler:$glide_version"
         }
         androidTest.dependencies {
             implementation "io.ktor:ktor-client-mock-jvm:$ktor_version"
@@ -112,27 +96,5 @@ kotlin {
         // Configure fields required by CocoaPods.
         summary = "Some description for a Kotlin/Native module"
         homepage = "Link to a Kotlin/Native module homepage"
-    }
-}
-
-// This task attaches native framework built from ios module to Xcode project
-// (see iosApp directory). Don't run this task directly,
-// Xcode runs this task itself during its build process.
-// Before opening the project from iosApp directory in Xcode,
-// make sure all Gradle infrastructure exists (gradle.wrapper, gradlew).
-task copyFramework {
-    def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
-    def target = project.findProperty("kotlin.target") ?: "ios"
-    dependsOn "link${buildType.toLowerCase().capitalize()}Framework${target.capitalize()}"
-
-    doLast {
-        def srcFile = kotlin.targets."$target".compilations.main.getBinary("FRAMEWORK", buildType)
-        def targetDir = getProperty("configuration.build.dir")
-        copy {
-            from srcFile.parent
-            into targetDir
-            include 'app.framework/**'
-            include 'app.framework.dSYM'
-        }
     }
 }
