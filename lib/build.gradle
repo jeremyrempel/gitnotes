@@ -1,7 +1,6 @@
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 
 // CocoaPods requires the podspec to have a version.
@@ -24,10 +23,6 @@ android {
             // MPP libraries don't currently get this resolution automatically
             matchingFallbacks = ['release']
         }
-    }
-
-    packagingOptions {
-        exclude 'META-INF/*.kotlin_module'
     }
 
     compileOptions {
