@@ -11,6 +11,7 @@ import lib
 
 class ViewController: UIViewController, ContentsView {
     
+    
     var isUpdating: Bool = false
     
     func showError(error: KotlinThrowable) {
@@ -52,6 +53,10 @@ class ViewController: UIViewController, ContentsView {
         
         //        let result = JsonTest().getPerson()
         
+    }
+    
+    func navigateTo() {
+    
     }
 }
 
