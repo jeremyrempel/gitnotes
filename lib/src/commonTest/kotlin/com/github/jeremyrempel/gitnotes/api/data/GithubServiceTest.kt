@@ -4,15 +4,13 @@ import com.github.jeremyrempel.gitnotes.api.GithubService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
-import io.ktor.http.fullPath
-import io.ktor.util.InternalAPI
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
+import kotlin.test.assertFails
 
-@InternalAPI
 class GithubServiceTest {
 
     val endPoint = "http://localhost"
@@ -30,11 +28,8 @@ class GithubServiceTest {
         // https://api.github.com/repos/jeremyrempel/gitnotestest/contents/
         val client = HttpClient(MockEngine) {
             engine {
-                addHandler { request ->
-                    when (request.url.fullPath) {
-                        "/repos/$user/$repo/contents" -> respond(resultJson)
-                        else -> error("Unhandled ${request.url.fullPath}")
-                    }
+                addHandler {
+                    respond(resultJson)
                 }
             }
         }
@@ -45,18 +40,21 @@ class GithubServiceTest {
         }
     }
 
-    @Test(expected = Exception::class)
+    @Test
     fun `test failure throws exception`() {
-        val client = HttpClient(MockEngine) {
-            engine {
-                addHandler {
-                    error("fail")
+
+        assertFails {
+            val client = HttpClient(MockEngine) {
+                engine {
+                    addHandler {
+                        error("fail")
+                    }
                 }
             }
-        }
 
-        runBlocking {
-            GithubService(client, endPoint, user, repo).getContents()
+            runBlocking {
+                GithubService(client, endPoint, user, repo).getContents()
+            }
         }
     }
 }
