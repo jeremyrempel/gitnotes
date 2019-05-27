@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.api.*
@@ -21,30 +22,27 @@ class MainActivity : AppCompatActivity(), ContentsView {
     val user = "jeremyrempel"
     val repo = "gitnotestest"
 
-    private lateinit var listAdapter: ListAdapter
+    private lateinit var listAdapter: ContentsResponseListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        listAdapter = ListAdapter {
+        listAdapter = ContentsResponseListAdapter {
             Toast.makeText(applicationContext, "Click: $it", Toast.LENGTH_SHORT).show()
         }
 
         findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@MainActivity)
-
-            val data = listOf(
-                ContentsResponse(
-                    "name",
-                    "FILE",
-                    100,
-                    "http://api.github.com/blah"
-                )
-            )
-
+            val linearLayoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
             adapter = listAdapter
+
+            val dividerItemDecoration = DividerItemDecoration(
+                context,
+                linearLayoutManager.orientation
+            )
+            addItemDecoration(dividerItemDecoration)
         }
 
         actions.onRequestData()
@@ -53,10 +51,8 @@ class MainActivity : AppCompatActivity(), ContentsView {
     override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         if (isLoading) {
             loadingView.visibility = View.VISIBLE
-//            text1.visibility = View.GONE
         } else {
             loadingView.visibility = View.GONE
-//            text1.visibility = View.VISIBLE
         }
     }
 
@@ -70,10 +66,8 @@ class MainActivity : AppCompatActivity(), ContentsView {
         getActions(coroutineContext, view, service)
     }
 
-
     override fun onUpdate(data: List<ContentsResponse>) {
         listAdapter.submitList(data)
-//        text.text = data.map { it.name + "\n" }.reduce { acc, s -> acc + s }
     }
 
     override fun showError(error: Throwable) {

@@ -16,7 +16,7 @@ class ContentsPresenter(
         view.isUpdating = true
 
         launch(coroutineContext) {
-            val response = api.getContents()
+            val response = api.getContents().sortedBy { it.name }
             view.onUpdate(response)
         }.invokeOnCompletion {
             view.isUpdating = false

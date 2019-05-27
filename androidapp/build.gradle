@@ -55,6 +55,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
     implementation "androidx.recyclerview:recyclerview:$androidx_recycler_version"
+    implementation 'androidx.core:core-ktx:1.0.1'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
