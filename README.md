@@ -23,6 +23,11 @@ The system is broken down into 3 modules:
 - Android implementation provided OKHttp via ktor-client-okhttp dependency
 - iOS implementation provided via NSUrlSession via ktor-client-ios
 
+## Dependency Injection
+
+- **Android:** Dagger. Dagger was used due to flexiblity and desire to integrate closely with the Android specific dependencies
+- **iOS**: Custom common code implementation
+
 ## Build Status
 
 |  Android | iOS  |

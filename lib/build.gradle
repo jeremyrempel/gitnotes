@@ -7,13 +7,10 @@ apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 version = "1.0"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion project.android_compilesdk.toInteger()
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion project.android_minsdk.toInteger()
+        targetSdkVersion project.android_targetsdk.toInteger()
     }
     buildTypes {
         release {
@@ -35,8 +32,8 @@ kotlin {
     targets {
         fromPreset(presets.android, 'android')
 
-        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")      \
-                                   ? presets.iosArm64 : presets.iosX64
+        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")       \
+                                    ? presets.iosArm64 : presets.iosX64
 
         fromPreset(iOSTarget, 'ios') {
             compilations.main.outputKinds("FRAMEWORK")
