@@ -5,8 +5,10 @@ import com.github.jeremyrempel.gitnotes.api.GithubService
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
 import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
 
 @Module
 class ServiceModule {
@@ -28,4 +30,8 @@ class ServiceModule {
 
         return GithubService(client, apiUrl, user, repo)
     }
+
+    @Provides
+    @Singleton
+    fun providesContext(): CoroutineContext = Dispatchers.Main
 }

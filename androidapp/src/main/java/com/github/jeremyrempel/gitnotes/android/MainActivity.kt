@@ -15,15 +15,12 @@ import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), ContentsView {
 
     val user = "jeremyrempel"
     val repo = "gitnotestest"
-
-    private val coroutineContext = Dispatchers.Main
 
     private lateinit var listAdapter: ContentsResponseListAdapter
 
@@ -35,6 +32,7 @@ class MainActivity : AppCompatActivity(), ContentsView {
         val dagger = DaggerSingletonComponent.create()
         val service = dagger.gitHubApi()
         val view: ContentsView = this
+        val coroutineContext = dagger.coroutineContext()
 
         ContentsPresenter(coroutineContext, view, service)
     }
