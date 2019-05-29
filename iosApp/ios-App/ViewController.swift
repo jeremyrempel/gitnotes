@@ -38,16 +38,15 @@ class ViewController: UIViewController, ContentsView {
         // Do any additional setup after loading the view.
         
         // todo dependency injection
-        let user:String = "jeremyrempel"
-        let repo:String = "gitnotestest"
+        let repoInfo = RepoInfo(user: "jeremyrempel", repo: "gitnotestest")
         let client:Ktor_client_coreHttpClient = DIKt.getHttpClient()
         let apiUrl:String = "https://api.github.com"
         
         let uiContext = UI()
         let contentsView = self
         
-        let service: GithubApi = DIKt.getService(user: user, repo: repo, client: client, apiUrl: apiUrl)
-        let presenter = ContentsPresenter(uiContext: uiContext, view: contentsView, api: service)
+        let service: GithubApi = DIKt.getService(client: client, apiUrl: apiUrl)
+        let presenter = ContentsPresenter(uiContext: uiContext, view: contentsView, api: service, repoInfo: repoInfo)
         
         presenter.onRequestData()
         
