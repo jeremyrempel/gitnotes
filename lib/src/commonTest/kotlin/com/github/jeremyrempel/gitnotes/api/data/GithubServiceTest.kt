@@ -21,9 +21,7 @@ class GithubServiceTest {
     @Test
     fun `testing ktor service request and response success`() {
 
-        val resultData = listOf(
-            ContentsResponse("name", "type", 100, "http://github.com/blah")
-        )
+        val resultData = listOf(Fakes.ContentsResponse)
         val resultJson = Json.stringify(ContentsResponse.serializer().list, resultData)
 
         // https://api.github.com/repos/jeremyrempel/gitnotestest/contents/
@@ -43,7 +41,6 @@ class GithubServiceTest {
 
     @Test
     fun `test failure throws exception`() {
-
         assertFails {
             val client = HttpClient(MockEngine) {
                 engine {

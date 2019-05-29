@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ContentsResponse(
     val name: String,
+    val path: String,
     val type: String, // file, dir or symlink
     val size: Long,
     val url: String

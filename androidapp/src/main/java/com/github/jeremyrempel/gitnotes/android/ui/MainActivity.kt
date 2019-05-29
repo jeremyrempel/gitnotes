@@ -1,37 +1,40 @@
 package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
-import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
-import com.github.jeremyrempel.gitnotes.api.RepoInfo
-import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
-import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
-import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
-import com.github.jeremyrempel.gitnotes.presentation.ContentsView
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlin.properties.Delegates
+import com.github.jeremyrempel.gitnotes.navigation.NavScreen
+import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
 
         if (savedInstanceState == null) {
-            val frag = ContentsListFragment()
+            val frag = ContentsListFragment.createInstance()
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.frame, frag)
                 .commitNow()
         }
     }
+
+    override fun navigateTo(screen: NavScreen) {
+        val frag = when (screen) {
+            is List -> ContentsListFragment.createInstance(screen.path)
+        }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.frame, frag)
+            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+            .addToBackStack(null)
+            .commit()
+    }
+}
+
+interface NavigationCallback {
+    fun navigateTo(screen: NavScreen)
 }

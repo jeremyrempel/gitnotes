@@ -5,7 +5,7 @@ import com.github.jeremyrempel.gitnotes.api.data.ReadMeResponse
 
 class GithubApiFake : GithubApi {
     val data = listOf(
-        ContentsResponse("name", "file", 100, "http://github.com/myfile")
+        ContentsResponse("name", "file", "filepath", 100, "http://github.com/myfile")
     )
 
     override suspend fun getReadme(): ReadMeResponse {

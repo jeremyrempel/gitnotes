@@ -50,11 +50,13 @@ class ContentsResponseTest {
         val expectedResult = listOf(
             ContentsResponse(
                 "README.md",
+                "README.md",
                 "file",
                 46,
                 "https://api.github.com/repos/jeremyrempel/gitnotestest/contents/README.md?ref=master"
             ),
             ContentsResponse(
+                "shopping",
                 "shopping",
                 "dir",
                 0,

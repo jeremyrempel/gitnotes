@@ -1,5 +1,6 @@
 package com.github.jeremyrempel.gitnotes.android.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
+import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
@@ -28,12 +30,15 @@ class ContentsListFragment : Fragment(), ContentsView {
     val repo = "gitnotestest"
 
     private lateinit var listAdapter: ContentsResponseListAdapter
+    private var navigationCallback: NavigationCallback? = null
+    private var currentPath: String? = null
 
     override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
     }
 
     private val actions: ContentsActions by lazy {
+        // todo inject in
         val dagger = DaggerSingletonComponent.create()
         val service = dagger.gitHubApi()
         val view: ContentsView = this
@@ -42,6 +47,21 @@ class ContentsListFragment : Fragment(), ContentsView {
         val repoInfo = RepoInfo(user, repo)
 
         ContentsPresenter(coroutineContext, view, service, repoInfo)
+    }
+
+    companion object {
+
+        const val ARG_PATH = "argpath"
+
+        fun createInstance(path: String? = null): Fragment {
+            val b = Bundle()
+            b.putString(ARG_PATH, path)
+
+            val frag = ContentsListFragment()
+            frag.arguments = b
+
+            return frag
+        }
     }
 
     override fun onUpdate(data: List<ContentsResponse>) {
@@ -53,14 +73,18 @@ class ContentsListFragment : Fragment(), ContentsView {
         Log.e("SampleAndroid", error.message, error)
     }
 
-    override fun navigateTo() {
-        Toast.makeText(context, "Navigate to", Toast.LENGTH_SHORT).show()
+    override fun navigateTo(screen: NavScreen) {
+        navigationCallback?.navigateTo(screen)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        listAdapter = ContentsResponseListAdapter(actions::onClick)
+        arguments?.let {
+            currentPath = it.getString(ARG_PATH)
+        }
+
+        listAdapter = ContentsResponseListAdapter(actions::onSelectItem)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -83,6 +107,19 @@ class ContentsListFragment : Fragment(), ContentsView {
             addItemDecoration(dividerItemDecoration)
         }
 
-        actions.onRequestData()
+        actions.onRequestData(currentPath)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+
+        if (context is NavigationCallback) {
+            navigationCallback = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        navigationCallback = null
     }
 }

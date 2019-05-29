@@ -20,7 +20,13 @@ class GithubService(
 
 
     override suspend fun getContents(repo: RepoInfo, path: String?): List<ContentsResponse> {
-        val stringResponse = client.get<String> { apiUrl("repos/${repo.user}/${repo.repo}/contents") }
+        val newPath = "repos/${repo.user}/${repo.repo}/contents".let {
+            if (path != null) "$it/$path" else it
+        }
+
+        val stringResponse = client.get<String> {
+            apiUrl(newPath)
+        }
 
         return jsonParser.parse(serializer, stringResponse)
     }

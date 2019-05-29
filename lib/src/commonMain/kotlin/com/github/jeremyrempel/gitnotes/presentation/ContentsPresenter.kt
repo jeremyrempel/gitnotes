@@ -3,6 +3,7 @@ package com.github.jeremyrempel.gitnotes.presentation
 import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
+import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -13,15 +14,20 @@ class ContentsPresenter(
     private val repoInfo: RepoInfo
 ) : CoroutinePresenter(uiContext, view), ContentsActions {
 
-    override fun onClick(item: ContentsResponse) = view.navigateTo()
+    override fun onSelectItem(item: ContentsResponse) {
+        view.navigateTo(NavScreen.List(item.path))
+    }
 
-    override fun onRequestData() = updateData()
+    /**
+     * Send data from cache or request from network
+     */
+    override fun onRequestData(path: String?) = updateData(path)
 
-    private fun updateData() {
+    private fun updateData(path: String? = null) {
         view.isUpdating = true
 
         launch(coroutineContext) {
-            val response = api.getContents(repoInfo).sortedBy { it.name }
+            val response = api.getContents(repoInfo, path).sortedBy { it.name }
             view.onUpdate(response)
         }.invokeOnCompletion {
             view.isUpdating = false
