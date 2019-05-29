@@ -6,23 +6,21 @@ import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import io.ktor.client.HttpClient
 import kotlin.coroutines.CoroutineContext
 
-
 fun getApiUrl() = "https://api.github.com"
 fun getHttpClient() = HttpClient()
 
 fun getService(
-    user: String,
-    repo: String,
     client: HttpClient = getHttpClient(),
     apiUrl: String = getApiUrl()
 ): GithubApi {
-    return GithubService(client, apiUrl, user, repo)
+    return GithubService(client, apiUrl)
 }
 
 fun getActions(
     coroutineContext: CoroutineContext,
     view: ContentsView,
-    service: GithubApi
+    service: GithubApi,
+    repo: RepoInfo
 ): ContentsActions {
-    return ContentsPresenter(coroutineContext, view, service)
+    return ContentsPresenter(coroutineContext, view, service, repo)
 }

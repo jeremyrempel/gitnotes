@@ -1,5 +1,6 @@
 package com.github.jeremyrempel.gitnotes.api.data
 
+import com.github.jeremyrempel.gitnotes.api.Fakes
 import com.github.jeremyrempel.gitnotes.api.GithubService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -35,7 +36,7 @@ class GithubServiceTest {
         }
 
         runBlocking {
-            val testResult = GithubService(client, endPoint, user, repo).getContents()
+            val testResult = GithubService(client, endPoint).getContents(Fakes.Repo)
             assertEquals(resultData, testResult)
         }
     }
@@ -53,7 +54,7 @@ class GithubServiceTest {
             }
 
             runBlocking {
-                GithubService(client, endPoint, user, repo).getContents()
+                GithubService(client, endPoint).getContents(Fakes.Repo)
             }
         }
     }

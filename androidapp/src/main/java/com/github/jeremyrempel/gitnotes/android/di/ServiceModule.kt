@@ -25,10 +25,7 @@ class ServiceModule {
     @Provides
     @Singleton
     fun providesGitHubApi(client: HttpClient, @Named("APIURL") apiUrl: String): GithubApi {
-        val user = "jeremyrempel"
-        val repo = "gitnotestest"
-
-        return GithubService(client, apiUrl, user, repo)
+        return GithubService(client, apiUrl)
     }
 
     @Provides

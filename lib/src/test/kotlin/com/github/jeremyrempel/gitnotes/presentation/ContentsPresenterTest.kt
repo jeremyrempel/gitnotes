@@ -1,3 +1,4 @@
+import com.github.jeremyrempel.gitnotes.api.Fakes
 import com.github.jeremyrempel.gitnotes.api.GitHubFakeError
 import com.github.jeremyrempel.gitnotes.api.GithubApiFake
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
@@ -17,7 +18,8 @@ class ContentsPresenterTest {
         val presenter = ContentsPresenter(
             testContext,
             view,
-            GithubApiFake()
+            GithubApiFake(),
+            Fakes.Repo
         )
 
         presenter.onRequestData()
@@ -34,7 +36,8 @@ class ContentsPresenterTest {
         val presenter = ContentsPresenter(
             testContext,
             view,
-            GitHubFakeError()
+            GitHubFakeError(),
+            Fakes.Repo
         )
 
         presenter.onRequestData()

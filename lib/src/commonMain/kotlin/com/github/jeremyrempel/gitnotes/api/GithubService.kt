@@ -6,28 +6,27 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 
 class GithubService(
     private val client: HttpClient,
     private val endPoint: String,
-    private val user: String,
-    private val repo: String
+    private val serializer: KSerializer<List<ContentsResponse>> = ContentsResponse.serializer().list,
+    private val jsonParser: Json = Json.nonstrict
 ) :
     GithubApi {
 
-    override suspend fun getContents(): List<ContentsResponse> {
-        val stringResponse = client.get<String> { apiUrl("repos/$user/$repo/contents") }
-        val serializer = getSerializer()
 
-        return Json.nonstrict.parse(serializer, stringResponse)
+    override suspend fun getContents(repo: RepoInfo, path: String?): List<ContentsResponse> {
+        val stringResponse = client.get<String> { apiUrl("repos/${repo.user}/${repo.repo}/contents") }
+
+        return jsonParser.parse(serializer, stringResponse)
     }
 
-    private fun getSerializer() = ContentsResponse.serializer().list
-
-    override suspend fun getReadme(): ReadMeResponse = client.get {
-        apiUrl("repos/$user/$repo/readme")
+    override suspend fun getReadme(): ReadMeResponse {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun HttpRequestBuilder.apiUrl(path: String) = url {

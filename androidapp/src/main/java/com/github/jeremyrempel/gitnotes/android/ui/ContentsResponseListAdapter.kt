@@ -1,4 +1,4 @@
-package com.github.jeremyrempel.gitnotes.android
+package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,8 @@ import androidx.core.view.isGone
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.github.jeremyrempel.gitnotes.android.ContentsResponseListAdapter.MyViewHolder
+import com.github.jeremyrempel.gitnotes.android.R
+import com.github.jeremyrempel.gitnotes.android.ui.ContentsResponseListAdapter.MyViewHolder
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import kotlinx.android.synthetic.main.row_list.view.*
 

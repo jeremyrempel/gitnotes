@@ -1,4 +1,4 @@
-package com.github.jeremyrempel.gitnotes.android
+package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,9 @@ import androidx.core.view.isGone
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
+import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
@@ -34,7 +36,9 @@ class MainActivity : AppCompatActivity(), ContentsView {
         val view: ContentsView = this
         val coroutineContext = dagger.coroutineContext()
 
-        ContentsPresenter(coroutineContext, view, service)
+        val repoInfo = RepoInfo(user, repo)
+
+        ContentsPresenter(coroutineContext, view, service, repoInfo)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
