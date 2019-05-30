@@ -5,6 +5,7 @@ import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 
 interface ContentsView : BaseView {
     fun onUpdate(data: List<ContentsResponseRow>)
+    fun onUpdate(data: ContentsResponseRow)
     fun navigateTo(screen: NavScreen)
 }
 

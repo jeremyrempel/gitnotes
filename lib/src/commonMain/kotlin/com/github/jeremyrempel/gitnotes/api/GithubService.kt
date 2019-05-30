@@ -1,25 +1,26 @@
 package com.github.jeremyrempel.gitnotes.api
 
+import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.api.data.ReadMeResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.list
 
 class GithubService(
     private val client: HttpClient,
     private val endPoint: String,
-    private val serializer: KSerializer<List<ContentsResponseRow>> = ContentsResponseRow.serializer().list,
     private val jsonParser: Json = Json.nonstrict
 ) :
     GithubApi {
 
 
-    override suspend fun getContents(repo: RepoInfo, path: String?): List<ContentsResponseRow> {
+    override suspend fun getContents(repo: RepoInfo, path: String?): ContentsResponse {
         val newPath = "repos/${repo.user}/${repo.repo}/contents".let {
             if (path != null) "$it/$path" else it
         }
@@ -28,7 +29,13 @@ class GithubService(
             apiUrl(newPath)
         }
 
-        return jsonParser.parse(serializer, stringResponse)
+        // parsing json twice :(
+        // find a better way to determine if array or object
+        return when(Json.nonstrict.parseJson(stringResponse)) {
+            is JsonObject -> ContentsResponse.ObjectResponse ( jsonParser.parse(ContentsResponseRow.serializer(), stringResponse) )
+            is JsonArray -> ContentsResponse.ListResponse ( jsonParser.parse(ContentsResponseRow.serializer().list, stringResponse) )
+            else -> ContentsResponse.UnknownResponse
+        }
     }
 
     override suspend fun getReadme(): ReadMeResponse {

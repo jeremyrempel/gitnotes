@@ -2,6 +2,7 @@ package com.github.jeremyrempel.gitnotes.presentation
 
 import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
+import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import kotlinx.coroutines.launch
@@ -27,8 +28,12 @@ class ContentsPresenter(
         view.isUpdating = true
 
         launch(coroutineContext) {
-            val response = api.getContents(repoInfo, path).sortedBy { it.name }
-            view.onUpdate(response)
+
+            when (val response = api.getContents(repoInfo, path)) {
+                is ContentsResponse.ListResponse -> view.onUpdate(response.data.sortedBy { it.name })
+                is ContentsResponse.ObjectResponse -> view.onUpdate(response.data)
+            }
+
         }.invokeOnCompletion {
             view.isUpdating = false
         }

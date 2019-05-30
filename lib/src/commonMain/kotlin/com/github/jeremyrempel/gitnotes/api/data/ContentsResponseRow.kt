@@ -16,6 +16,7 @@ data class ContentsResponseRow(
 )
 
 sealed class ContentsResponse {
-    class ListResponse(data: List<ContentsResponseRow>) : ContentsResponse()
-    class ObjectResponse(data: ContentsResponseRow) : ContentsResponse()
+    class ListResponse(val data: List<ContentsResponseRow>) : ContentsResponse()
+    class ObjectResponse(val data: ContentsResponseRow) : ContentsResponse()
+    object UnknownResponse : ContentsResponse()
 }

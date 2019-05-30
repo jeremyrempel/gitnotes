@@ -67,6 +67,10 @@ class ContentsListFragment : Fragment(), ContentsView {
         listAdapter.submitList(data)
     }
 
+    override fun onUpdate(data: ContentsResponseRow) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showError(error: Throwable) {
         view?.findViewById<TextView>(R.id.text)?.text = error.message
         Log.e("SampleAndroid", error.message, error)
