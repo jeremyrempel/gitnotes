@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
-import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
+import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
@@ -64,7 +63,7 @@ class ContentsListFragment : Fragment(), ContentsView {
         }
     }
 
-    override fun onUpdate(data: List<ContentsResponse>) {
+    override fun onUpdate(data: List<ContentsResponseRow>) {
         listAdapter.submitList(data)
     }
 
