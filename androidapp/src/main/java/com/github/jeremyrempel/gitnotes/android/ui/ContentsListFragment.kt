@@ -2,6 +2,7 @@ package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,8 @@ class ContentsListFragment : Fragment(), ContentsView {
 
     override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
+        recycler.isGone = isLoading
+        content.isGone = isLoading
     }
 
     private val actions: ContentsActions by lazy {
@@ -68,11 +71,11 @@ class ContentsListFragment : Fragment(), ContentsView {
     }
 
     override fun onUpdate(data: ContentsResponseRow) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        content.text = data.content
     }
 
     override fun showError(error: Throwable) {
-        view?.findViewById<TextView>(R.id.text)?.text = error.message
+        content.text = error.message
         Log.e("SampleAndroid", error.message, error)
     }
 
