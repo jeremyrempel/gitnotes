@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame, frag)
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
             .addToBackStack(null)
             .commit()
     }

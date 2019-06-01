@@ -22,7 +22,7 @@ class GithubServiceTest {
     fun `testing ktor service request and response success`() {
 
         val resultData = listOf(Fakes.ContentsResponse)
-        val resultJson = Json.stringify(ContentsResponse.serializer().list, resultData)
+        val resultJson = Json.stringify(ContentsResponseRow.serializer().list, resultData)
 
         // https://api.github.com/repos/jeremyrempel/gitnotestest/contents/
         val client = HttpClient(MockEngine) {

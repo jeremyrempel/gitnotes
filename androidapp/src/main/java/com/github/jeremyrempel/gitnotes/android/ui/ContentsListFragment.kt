@@ -2,12 +2,12 @@ package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
-import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
+import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
@@ -35,6 +35,8 @@ class ContentsListFragment : Fragment(), ContentsView {
 
     override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
+        recycler.isGone = isLoading
+        content.isGone = isLoading
     }
 
     private val actions: ContentsActions by lazy {
@@ -64,12 +66,16 @@ class ContentsListFragment : Fragment(), ContentsView {
         }
     }
 
-    override fun onUpdate(data: List<ContentsResponse>) {
+    override fun onUpdate(data: List<ContentsResponseRow>) {
         listAdapter.submitList(data)
     }
 
+    override fun onUpdate(data: ContentsResponseRow) {
+        content.text = data.content
+    }
+
     override fun showError(error: Throwable) {
-        view?.findViewById<TextView>(R.id.text)?.text = error.message
+        content.text = error.message
         Log.e("SampleAndroid", error.message, error)
     }
 

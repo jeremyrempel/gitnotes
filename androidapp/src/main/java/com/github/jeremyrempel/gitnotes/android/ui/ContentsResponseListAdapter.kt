@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.ui.ContentsResponseListAdapter.MyViewHolder
-import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
+import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import kotlinx.android.synthetic.main.row_list.view.*
 
-class ContentsResponseListAdapter(private val callback: (ContentsResponse) -> Unit) :
-    ListAdapter<ContentsResponse, MyViewHolder>(TaskDiffCallback()) {
+class ContentsResponseListAdapter(private val callback: (ContentsResponseRow) -> Unit) :
+    ListAdapter<ContentsResponseRow, MyViewHolder>(TaskDiffCallback()) {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) = holder.bind(getItem(position), callback)
 
@@ -24,7 +24,7 @@ class ContentsResponseListAdapter(private val callback: (ContentsResponse) -> Un
     }
 
     class MyViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(row: ContentsResponse, callback: (ContentsResponse) -> Unit) {
+        fun bind(row: ContentsResponseRow, callback: (ContentsResponseRow) -> Unit) {
             view.text_title.text = row.name
 
             if (row.size == 0L) {
@@ -47,10 +47,10 @@ class ContentsResponseListAdapter(private val callback: (ContentsResponse) -> Un
         }
     }
 
-    class TaskDiffCallback : DiffUtil.ItemCallback<ContentsResponse>() {
-        override fun areItemsTheSame(oldItem: ContentsResponse, newItem: ContentsResponse): Boolean = oldItem == newItem
+    class TaskDiffCallback : DiffUtil.ItemCallback<ContentsResponseRow>() {
+        override fun areItemsTheSame(oldItem: ContentsResponseRow, newItem: ContentsResponseRow): Boolean = oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: ContentsResponse, newItem: ContentsResponse): Boolean =
+        override fun areContentsTheSame(oldItem: ContentsResponseRow, newItem: ContentsResponseRow): Boolean =
             oldItem == newItem
     }
 }
