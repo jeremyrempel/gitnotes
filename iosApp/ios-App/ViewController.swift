@@ -10,8 +10,7 @@ import UIKit
 import lib
 
 class ViewController: UIViewController, ContentsView {
-    
-    
+
     var isUpdating: Bool = false
     
     func showError(error: KotlinThrowable) {
@@ -48,14 +47,13 @@ class ViewController: UIViewController, ContentsView {
         let service: GithubApi = DIKt.getService(client: client, apiUrl: apiUrl)
         let presenter = ContentsPresenter(uiContext: uiContext, view: contentsView, api: service, repoInfo: repoInfo)
         
-        presenter.onRequestData()
+        presenter.onRequestData(path: nil)
         
         //        let result = JsonTest().getPerson()
-        
     }
     
-    func navigateTo() {
-    
+    func navigateTo(screen: NavScreen) {
+        
     }
 }
 
