@@ -10,14 +10,8 @@ import UIKit
 import lib
 
 class ViewController: UIViewController, ContentsView {
-
-    var isUpdating: Bool = false
     
-    func showError(error: KotlinThrowable) {
-    }
-    
-    func onUpdate(data: [ContentsResponse]) {
-        
+    func onUpdate(data: [ContentsResponseRow]) {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
         label.center = CGPoint(x: 160, y: 285)
         label.textAlignment = .center
@@ -30,6 +24,18 @@ class ViewController: UIViewController, ContentsView {
         label.text = result
         
         view.addSubview(label)
+    }
+    
+    func onUpdate(data_ data: ContentsResponseRow) {
+    }
+
+    var isUpdating: Bool = false
+    
+    func showError(error: KotlinThrowable) {
+    }
+    
+    func onUpdate(data: [ContentsResponse]) {
+        
     }
     
     override func viewDidLoad() {
