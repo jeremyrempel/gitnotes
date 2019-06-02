@@ -9,21 +9,26 @@
 import UIKit
 import lib
 
-class ViewController: UIViewController, ContentsView {
+class ViewController: UITableViewController, ContentsView {
+
+    var data: [ContentsResponseRow] = Array()
     
     func onUpdate(data: [ContentsResponseRow]) {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
-        label.center = CGPoint(x: 160, y: 285)
-        label.textAlignment = .center
-        label.font = label.font.withSize(25)
+        self.data = data
         
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+//        label.center = CGPoint(x: 160, y: 285)
+//        label.textAlignment = .center
+//        label.font = label.font.withSize(25)
+//
+//        let strMap = data.map { r in r.name + "," }
+//        let result = strMap.reduce("", { x, y in x + y } )
+//
+//        label.text = result
+//
+//        view.addSubview(label)
         
-        let strMap = data.map { r in r.name + "," }
-        let result = strMap.reduce("", { x, y in x + y } )
-        
-        label.text = result
-        
-        view.addSubview(label)
+        self.tableView.reloadData()
     }
     
     func onUpdate(data_ data: ContentsResponseRow) {
@@ -35,7 +40,20 @@ class ViewController: UIViewController, ContentsView {
     }
     
     func onUpdate(data: [ContentsResponse]) {
+    }
+    
+    func navigateTo(screen: NavScreen) {
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customcell", for: indexPath)
         
+        cell.textLabel?.text = data[indexPath.item].name
+        return cell
     }
     
     override func viewDidLoad() {
@@ -54,12 +72,5 @@ class ViewController: UIViewController, ContentsView {
         let presenter = ContentsPresenter(uiContext: uiContext, view: contentsView, api: service, repoInfo: repoInfo)
         
         presenter.onRequestData(path: nil)
-        
-        //        let result = JsonTest().getPerson()
-    }
-    
-    func navigateTo(screen: NavScreen) {
-        
     }
 }
-
