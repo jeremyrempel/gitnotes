@@ -2,12 +2,10 @@ package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
+import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
@@ -22,6 +21,8 @@ import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlinx.android.synthetic.main.fragment_main.*
+import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates
 
 class ContentsListFragment : Fragment(), ContentsView {
@@ -33,6 +34,12 @@ class ContentsListFragment : Fragment(), ContentsView {
     private var navigationCallback: NavigationCallback? = null
     private var currentPath: String? = null
 
+    @Inject
+    lateinit var service: GithubApi
+
+    @Inject
+    lateinit var coroutineContext: CoroutineContext
+
     override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
         recycler.isGone = isLoading
@@ -40,14 +47,8 @@ class ContentsListFragment : Fragment(), ContentsView {
     }
 
     private val actions: ContentsActions by lazy {
-        // todo inject in
-        val dagger = DaggerSingletonComponent.create()
-        val service = dagger.gitHubApi()
-        val view: ContentsView = this
-        val coroutineContext = dagger.coroutineContext()
-
         val repoInfo = RepoInfo(user, repo)
-
+        val view: ContentsView = this
         ContentsPresenter(coroutineContext, view, service, repoInfo)
     }
 
@@ -85,6 +86,8 @@ class ContentsListFragment : Fragment(), ContentsView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        DaggerSingletonComponent.create().inject(this)
 
         arguments?.let {
             currentPath = it.getString(ARG_PATH)
