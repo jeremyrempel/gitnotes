@@ -26,7 +26,7 @@ class ContentsPresenterTest {
 
         verifySequence {
             view setProperty "isUpdating" value true
-            view.onUpdate(GithubApiFake().data)
+            view.onUpdate(GithubApiFake().data.data)
             view setProperty "isUpdating" value false
         }
     }
