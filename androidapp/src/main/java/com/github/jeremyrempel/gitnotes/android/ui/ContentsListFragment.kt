@@ -2,7 +2,6 @@ package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.jeremyrempel.gitnotes.LogLevel
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
+import com.github.jeremyrempel.gitnotes.log
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
@@ -65,7 +66,7 @@ class ContentsListFragment : Fragment(), ContentsView {
 
     override fun showError(error: Throwable) {
         content.text = error.message
-        Log.e("SampleAndroid", error.message, error)
+        log(LogLevel.ERROR, this::class.toString(), "Error", error)
     }
 
     override fun navigateTo(screen: NavScreen) {
