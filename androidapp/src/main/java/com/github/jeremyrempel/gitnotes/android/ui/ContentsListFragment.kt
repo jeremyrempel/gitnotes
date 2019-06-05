@@ -12,44 +12,33 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
-import com.github.jeremyrempel.gitnotes.android.di.DaggerSingletonComponent
-import com.github.jeremyrempel.gitnotes.api.GithubApi
+import com.github.jeremyrempel.gitnotes.android.di.ServiceModule
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
-import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates
 
 class ContentsListFragment : Fragment(), ContentsView {
 
     val user = "jeremyrempel"
     val repo = "gitnotestest"
+    private val repoInfo = RepoInfo(user, repo)
 
     private lateinit var listAdapter: ContentsResponseListAdapter
     private var navigationCallback: NavigationCallback? = null
     private var currentPath: String? = null
 
     @Inject
-    lateinit var service: GithubApi
-
-    @Inject
-    lateinit var coroutineContext: CoroutineContext
+    lateinit var actions: ContentsActions
 
     override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
         recycler.isGone = isLoading
         content.isGone = isLoading
-    }
-
-    private val actions: ContentsActions by lazy {
-        val repoInfo = RepoInfo(user, repo)
-        val view: ContentsView = this
-        ContentsPresenter(coroutineContext, view, service, repoInfo)
     }
 
     companion object {
@@ -87,13 +76,20 @@ class ContentsListFragment : Fragment(), ContentsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        DaggerSingletonComponent.create().inject(this)
+        inject()
 
         arguments?.let {
             currentPath = it.getString(ARG_PATH)
         }
 
         listAdapter = ContentsResponseListAdapter(actions::onSelectItem)
+    }
+
+    private fun inject() {
+        DaggerContentFragmentComponent.builder()
+            .contentsPresenterModule(ContentsPresenterModule(this, repoInfo))
+            .build()
+            .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
