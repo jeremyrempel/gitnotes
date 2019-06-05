@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.android.R
-import com.github.jeremyrempel.gitnotes.android.di.ServiceModule
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen

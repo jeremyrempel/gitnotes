@@ -2,10 +2,6 @@ package com.github.jeremyrempel.gitnotes.android.di
 
 import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.GithubService
-import com.github.jeremyrempel.gitnotes.api.RepoInfo
-import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
-import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
-import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient
