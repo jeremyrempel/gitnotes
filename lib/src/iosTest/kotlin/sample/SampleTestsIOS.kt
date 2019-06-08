@@ -10,9 +10,6 @@ data class WorkerDataClass(val name: String, val desc: String)
 class SampleTestsIOS {
     @Test
     fun `test worker`() {
-        assertTrue("iOS" in hello())
-
-
         val worker = Worker.start()
         val job = worker.execute(TransferMode.SAFE, {
             "Hello World"
