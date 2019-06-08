@@ -32,39 +32,27 @@ android {
     }
 }
 
-
 kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation project(':lib')
-            }
-        }
-    }
-
     targets {
         fromPreset(presets.android, 'androidApp')
     }
 }
 
 dependencies {
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':lib')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
     implementation "androidx.recyclerview:recyclerview:$androidx_recycler_version"
     implementation 'androidx.core:core-ktx:1.0.1'
-
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
     implementation "io.ktor:ktor-client-okhttp:$ktor_version"
-
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
-
+    compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'com.android.support:design:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
