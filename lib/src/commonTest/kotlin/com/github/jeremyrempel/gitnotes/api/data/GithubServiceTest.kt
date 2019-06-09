@@ -6,6 +6,7 @@ import com.github.jeremyrempel.gitnotes.runBlockingTest
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
+import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.test.Test
@@ -15,8 +16,9 @@ import kotlin.test.fail
 
 class GithubServiceTest {
 
-    val endPoint = "http://localhost"
+    private val endPoint = "http://localhost"
 
+    @UnstableDefault
     @Test
     fun `testing ktor service request and response success`() {
 
@@ -33,9 +35,7 @@ class GithubServiceTest {
         }
 
         runBlockingTest {
-            val testResult = GithubService(client, endPoint).getContents(Fakes.Repo)
-
-            when (testResult) {
+            when (val testResult = GithubService(client, endPoint).getContents(Fakes.Repo)) {
                 is ContentsResponse.ListResponse -> assertEquals(resultData, testResult.data)
                 else -> fail("Invalid response")
             }

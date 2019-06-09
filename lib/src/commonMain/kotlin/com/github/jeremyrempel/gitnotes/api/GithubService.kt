@@ -8,21 +8,22 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
+import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.list
 
-class GithubService(
+@UnstableDefault
+class GithubService constructor(
     private val client: HttpClient,
     private val endPoint: String,
     private val jsonParser: Json = Json.nonstrict
 ) :
     GithubApi {
 
-
-    override suspend fun getContents(repo: RepoInfo, path: String?): ContentsResponse {
-        val newPath = "repos/${repo.user}/${repo.repo}/contents".let {
+    override suspend fun getContents(repoInfo: RepoInfo, path: String?): ContentsResponse {
+        val newPath = "repos/${repoInfo.user}/${repoInfo.repo}/contents".let {
             if (path != null) "$it/$path" else it
         }
 
@@ -52,8 +53,6 @@ class GithubService(
             )
             else -> ContentsResponse.UnknownResponse
         }
-
-
     }
 
     override suspend fun getReadme(): ReadMeResponse {
