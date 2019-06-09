@@ -13,8 +13,6 @@ import kotlin.test.assertTrue
 
 class ContentsResponseTest {
 
-
-
     @Test
     fun `test basic json deserialize array`() {
         val testResult = Json.nonstrict.parse(ContentsResponseRow.serializer().list, testJsonArray)
