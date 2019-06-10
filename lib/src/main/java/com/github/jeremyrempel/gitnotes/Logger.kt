@@ -1,7 +1,6 @@
 package com.github.jeremyrempel.gitnotes
 
 import android.util.Log
-import com.github.jeremyrempel.gitnotes.LogLevel
 
 actual fun log(level: LogLevel, tag: String, message: String, error: Throwable) {
     when (level) {
