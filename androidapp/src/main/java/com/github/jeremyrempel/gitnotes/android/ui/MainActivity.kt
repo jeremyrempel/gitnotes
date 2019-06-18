@@ -2,6 +2,7 @@ package com.github.jeremyrempel.gitnotes.android.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
@@ -9,21 +10,31 @@ import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
 class MainActivity : AppCompatActivity(), NavigationCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = FragFactory()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
 
         if (savedInstanceState == null) {
-            val frag = ContentsListFragment.createInstance()
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frame, frag)
+                .replace(R.id.frame, buildContentsListFragment())
                 .commitNow()
         }
     }
 
     override fun navigateTo(screen: NavScreen) {
         val frag = when (screen) {
-            is List -> ContentsListFragment.createInstance(screen.path)
+            is List -> {
+                val frag = buildContentsListFragment()
+
+                Bundle().apply {
+                    putString(ContentsListFragment.ARG_PATH, screen.path)
+                    frag.arguments = this
+                }
+
+                frag
+            }
         }
 
         supportFragmentManager
@@ -31,6 +42,11 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
             .replace(R.id.frame, frag)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun buildContentsListFragment(): Fragment {
+        val fragName = ContentsListFragment::class.java
+        return supportFragmentManager.fragmentFactory.instantiate(classLoader, fragName.canonicalName)
     }
 }
 

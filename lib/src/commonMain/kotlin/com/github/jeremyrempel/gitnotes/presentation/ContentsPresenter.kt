@@ -10,10 +10,11 @@ import kotlin.coroutines.CoroutineContext
 
 class ContentsPresenter(
     uiContext: CoroutineContext,
-    private val view: ContentsView,
     private val api: GithubApi,
     private val repoInfo: RepoInfo
-) : CoroutinePresenter(uiContext, view), ContentsActions {
+) : CoroutinePresenter(uiContext), ContentsActions {
+
+    lateinit var view: ContentsView
 
     override fun onSelectItem(item: ContentsResponseRow) {
         view.navigateTo(NavScreen.List(item.path))

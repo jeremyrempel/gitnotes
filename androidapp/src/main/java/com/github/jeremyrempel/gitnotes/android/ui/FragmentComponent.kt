@@ -6,6 +6,6 @@ import javax.inject.Singleton
 
 @Component(modules = [ServiceModule::class, ContentsPresenterModule::class])
 @Singleton
-interface ContentFragmentComponent {
-    fun inject(frag: ContentsListFragment)
+interface FragmentComponent {
+    fun contentsListFrag(): ContentsListFragment
 }
