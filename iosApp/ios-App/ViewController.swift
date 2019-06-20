@@ -69,7 +69,8 @@ class ViewController: UITableViewController, ContentsView {
         let contentsView = self
         
         let service: GithubApi = DIKt.getService(client: client, apiUrl: apiUrl)
-        let presenter = ContentsPresenter(uiContext: uiContext, view: contentsView, api: service, repoInfo: repoInfo)
+        let presenter = ContentsPresenter(uiContext: uiContext, api: service, repoInfo: repoInfo)
+        presenter.view = self
         
         presenter.onRequestData(path: nil)
     }

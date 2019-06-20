@@ -22,5 +22,7 @@ fun getActions(
     service: GithubApi,
     repo: RepoInfo
 ): ContentsActions {
-    return ContentsPresenter(coroutineContext, view, service, repo)
+    val presenter = ContentsPresenter(coroutineContext, service, repo)
+    presenter.view = view
+    return presenter
 }
