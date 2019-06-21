@@ -14,13 +14,13 @@ class ContentsPresenterTest {
     private val testContext = TestCoroutineScope().coroutineContext
 
     @Test
-    fun `on request data updates view`() {
+    fun `onRequest data updates view`() {
         val presenter = ContentsPresenter(
             testContext,
-            view,
             GithubApiFake(),
             Fakes.Repo
         )
+        presenter.view = view
 
         presenter.onRequestData()
 
@@ -35,17 +35,22 @@ class ContentsPresenterTest {
     fun `on request data error update view`() {
         val presenter = ContentsPresenter(
             testContext,
-            view,
             GitHubFakeError(),
             Fakes.Repo
         )
+        presenter.view = view
 
         presenter.onRequestData()
 
         verifySequence {
             view setProperty "isUpdating" value true
-            view.showError(any())
             view setProperty "isUpdating" value false
+//            view.showError(any())
         }
+    }
+
+    @Test
+    fun test() {
+
     }
 }
