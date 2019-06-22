@@ -32,8 +32,8 @@ kotlin {
     targets {
         fromPreset(presets.android, 'android')
 
-        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")       \
-                                    ? presets.iosArm64 : presets.iosX64
+        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")        \
+                                     ? presets.iosArm64 : presets.iosX64
 
         fromPreset(iOSTarget, 'ios') {
             binaries {
@@ -92,19 +92,19 @@ kotlin {
 
     task iosTest {
         def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-        dependsOn 'linkTestDebugExecutableIos'
+        dependsOn 'iosTestBinaries'
         group = JavaBasePlugin.VERIFICATION_GROUP
         description = "Runs tests for target 'ios' on an iOS simulator"
 
         doLast {
-            def binary = kotlin.targets.ios.binaries.getExecutable('test', 'DEBUG').outputFile
+            def binary = kotlin.targets.ios.binaries.getTest("DEBUG").outputFile
             exec {
                 commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
             }
         }
     }
 
-//    tasks.named("check") {
-//        dependsOn("iosTest")
-//    }
+    tasks.named("check") {
+        dependsOn("iosTest")
+    }
 }
