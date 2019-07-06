@@ -45,7 +45,7 @@ class ContentsPresenterTest {
         verifySequence {
             view setProperty "isUpdating" value true
             view setProperty "isUpdating" value false
-//            view.showError(any())
+//            view.onError(any())
         }
     }
 

@@ -18,7 +18,7 @@ abstract class CoroutinePresenter(
     private val job = Job()
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         //        log(LogLevel.ERROR, TAG, "Coroutine Error", throwable)
-        baseView.showError(throwable)
+        baseView.onError(throwable)
     }
 
     override val coroutineContext: CoroutineContext

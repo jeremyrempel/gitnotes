@@ -41,7 +41,7 @@ class ContentsListFragment(private val actions: ContentsActions) : Fragment(), C
         content.text = data.content
     }
 
-    override fun showError(error: Throwable) {
+    override fun onError(error: Throwable) {
         content.text = error.message
         log(LogLevel.ERROR, this::class.toString(), "Error", error)
     }
