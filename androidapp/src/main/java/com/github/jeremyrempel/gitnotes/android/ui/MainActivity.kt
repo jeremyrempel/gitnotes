@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.jeremyrempel.gitnotes.android.R
+import com.github.jeremyrempel.gitnotes.android.di.AppComponent
+import com.github.jeremyrempel.gitnotes.android.di.DaggerAppComponent
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
 
 class MainActivity : AppCompatActivity(), NavigationCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = FragFactory()
+        // init dagger graph
+        val dagger: AppComponent = DaggerAppComponent.create()
+
+        supportFragmentManager.fragmentFactory = dagger.fragFactory()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
@@ -45,8 +50,9 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
     }
 
     private fun buildContentsListFragment(): Fragment {
-        val fragName = ContentsListFragment::class.java
-        return supportFragmentManager.fragmentFactory.instantiate(classLoader, fragName.canonicalName)
+        return supportFragmentManager
+            .fragmentFactory
+            .instantiate(classLoader, ContentsListFragment::class.java.canonicalName)
     }
 }
 
