@@ -1,11 +1,11 @@
-package com.github.jeremyrempel.gitnotes.android.ui
+package com.github.jeremyrempel.gitnotes.android
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.di.AppComponent
 import com.github.jeremyrempel.gitnotes.android.di.DaggerAppComponent
+import com.github.jeremyrempel.gitnotes.android.ui.ContentsListFragment
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
 

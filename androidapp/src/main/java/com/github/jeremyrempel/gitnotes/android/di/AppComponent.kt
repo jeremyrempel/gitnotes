@@ -1,7 +1,7 @@
 package com.github.jeremyrempel.gitnotes.android.di
 
 import com.github.jeremyrempel.gitnotes.android.ui.ContentsPresenterModule
-import com.github.jeremyrempel.gitnotes.android.ui.FragFactory
+import com.github.jeremyrempel.gitnotes.android.factory.FragFactory
 import dagger.Component
 import javax.inject.Singleton
 

@@ -1,6 +1,7 @@
-package com.github.jeremyrempel.gitnotes.android.ui
+package com.github.jeremyrempel.gitnotes.android.di
 
-import com.github.jeremyrempel.gitnotes.android.di.ServiceModule
+import com.github.jeremyrempel.gitnotes.android.ui.ContentsListFragment
+import com.github.jeremyrempel.gitnotes.android.ui.ContentsPresenterModule
 import dagger.Component
 import javax.inject.Singleton
 

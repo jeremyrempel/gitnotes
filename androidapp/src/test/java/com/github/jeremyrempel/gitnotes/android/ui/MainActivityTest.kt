@@ -2,6 +2,7 @@ package com.github.jeremyrempel.gitnotes.android.ui
 
 import androidx.test.core.app.ActivityScenario.launch
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jeremyrempel.gitnotes.android.MainActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 

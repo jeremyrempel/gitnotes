@@ -1,7 +1,8 @@
-package com.github.jeremyrempel.gitnotes.android.ui
+package com.github.jeremyrempel.gitnotes.android.factory
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import com.github.jeremyrempel.gitnotes.android.ui.ContentsListFragment
 import javax.inject.Inject
 import javax.inject.Provider
 
