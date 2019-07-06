@@ -32,17 +32,18 @@ kotlin {
     targets {
         fromPreset(presets.android, 'android')
 
-        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")       \
-                                    ? presets.iosArm64 : presets.iosX64
+        def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos")        \
+                                     ? presets.iosArm64 : presets.iosX64
 
         fromPreset(iOSTarget, 'ios') {
-            compilations.main.outputKinds("FRAMEWORK")
-            compilations.test.outputKinds("FRAMEWORK")
+            binaries {
+                framework('lib')
+            }
         }
     }
     sourceSets {
         commonMain.dependencies {
-            implementation kotlin('stdlib-common')
+            api 'org.jetbrains.kotlin:kotlin-stdlib-common'
             implementation "io.ktor:ktor-client-core:$ktor_version"
             implementation "io.ktor:ktor-client-json:$ktor_version"
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
@@ -58,8 +59,7 @@ kotlin {
             implementation 'org.jetbrains.kotlin:kotlin-test-junit'
         }
         androidMain.dependencies {
-            implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+            api 'org.jetbrains.kotlin:kotlin-stdlib'
             implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
             implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
             implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
@@ -92,12 +92,12 @@ kotlin {
 
     task iosTest {
         def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-        dependsOn 'linkTestDebugExecutableIos'
+        dependsOn 'iosTestBinaries'
         group = JavaBasePlugin.VERIFICATION_GROUP
         description = "Runs tests for target 'ios' on an iOS simulator"
 
         doLast {
-            def binary = kotlin.targets.ios.binaries.getExecutable('test', 'DEBUG').outputFile
+            def binary = kotlin.targets.ios.binaries.getTest("DEBUG").outputFile
             exec {
                 commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
             }
