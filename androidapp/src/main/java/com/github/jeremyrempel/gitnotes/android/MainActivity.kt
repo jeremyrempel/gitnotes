@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationCallback {
     private fun buildContentsListFragment(): Fragment {
         return supportFragmentManager
             .fragmentFactory
-            .instantiate(classLoader, ContentsListFragment::class.java.canonicalName)
+            .instantiate(classLoader, ContentsListFragment::class.java.canonicalName!!)
     }
 }
 
