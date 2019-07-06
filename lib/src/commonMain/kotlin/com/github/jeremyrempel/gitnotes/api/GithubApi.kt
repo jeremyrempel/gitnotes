@@ -8,5 +8,3 @@ interface GithubApi {
 
     suspend fun getContents(repoInfo: RepoInfo, path: String? = null): ContentsResponse
 }
-
-data class RepoInfo(val user: String, val repo: String)
