@@ -15,7 +15,8 @@ class ContentsPresenterModule {
 
     @Provides
     fun providesContentsListFragment(
-        context: CoroutineContext, api: GithubApi
+        context: CoroutineContext,
+        api: GithubApi
     ): ContentsListFragment {
 
         val actions = ContentsPresenter(context, api, repoInfo)
