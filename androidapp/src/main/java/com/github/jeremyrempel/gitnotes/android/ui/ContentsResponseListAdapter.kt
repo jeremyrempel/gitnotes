@@ -48,7 +48,8 @@ class ContentsResponseListAdapter(private val callback: (ContentsResponseRow) ->
     }
 
     class TaskDiffCallback : DiffUtil.ItemCallback<ContentsResponseRow>() {
-        override fun areItemsTheSame(oldItem: ContentsResponseRow, newItem: ContentsResponseRow): Boolean = oldItem == newItem
+        override fun areItemsTheSame(oldItem: ContentsResponseRow, newItem: ContentsResponseRow): Boolean =
+            oldItem == newItem
 
         override fun areContentsTheSame(oldItem: ContentsResponseRow, newItem: ContentsResponseRow): Boolean =
             oldItem == newItem

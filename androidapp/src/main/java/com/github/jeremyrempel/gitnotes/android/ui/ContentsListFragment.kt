@@ -8,64 +8,43 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.jeremyrempel.gitnotes.LogLevel
 import com.github.jeremyrempel.gitnotes.android.NavigationCallback
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.vm.ContentsViewModel
-import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
-import com.github.jeremyrempel.gitnotes.log
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
-import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
-import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlinx.android.synthetic.main.fragment_main.*
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class ContentsListFragment(
-    private val actions: ContentsActions,
+class ContentsListFragment @Inject constructor(
     private val vmFactory: ViewModelProvider.Factory
-) : Fragment(), ContentsView {
+) : Fragment() {
 
     private lateinit var listAdapter: ContentsResponseListAdapter
     private var navigationCallback: NavigationCallback? = null
-    private var currentPath: String? = null
+    private val viewModel: ContentsViewModel by viewModels { vmFactory }
 
-    override var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
+    private var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
         recycler.isGone = isLoading
         content.isGone = isLoading
     }
 
-    override fun onUpdate(data: List<ContentsResponseRow>) {
-        listAdapter.submitList(data)
-    }
-
-    override fun onUpdate(data: ContentsResponseRow) {
-        content.text = data.content
-    }
-
-    override fun onError(error: Throwable) {
-        content.text = error.message
-        log(LogLevel.ERROR, this::class.toString(), "Error", error)
-    }
-
-    override fun navigateTo(screen: NavScreen) {
-        navigationCallback?.navigateTo(screen)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        var currentPath: String? = null
         arguments?.let {
             currentPath = it.getString(ARG_PATH)
         }
 
-        listAdapter = ContentsResponseListAdapter(actions::onSelectItem)
-
-        val viewModel by viewModels<ContentsViewModel> { vmFactory }
+        listAdapter = ContentsResponseListAdapter(viewModel::onSelectItem)
+        viewModel.requestData(currentPath)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -88,7 +67,29 @@ class ContentsListFragment(
             addItemDecoration(dividerItemDecoration)
         }
 
-        actions.onRequestData(currentPath)
+        listenForChanges(viewModel)
+    }
+
+    private fun listenForChanges(viewModel: ContentsViewModel) {
+        viewModel.getData().observe(this, Observer { onUpdate(it) })
+        viewModel.isError().observe(this, Observer { onError(it) })
+        viewModel.isLoading().observe(this, Observer { isUpdating = it })
+        viewModel.navEvent().observe(this, Observer { navigateTo(it) })
+    }
+
+    private fun onUpdate(data: ContentsUi) {
+        when (data) {
+            is ContentsUi.Multiple -> listAdapter.submitList(data.result)
+            is ContentsUi.Single -> content.text = data.result.content
+        }
+    }
+
+    private fun onError(error: String) {
+        content.text = error
+    }
+
+    private fun navigateTo(screen: NavScreen) {
+        navigationCallback?.navigateTo(screen)
     }
 
     override fun onAttach(context: Context) {

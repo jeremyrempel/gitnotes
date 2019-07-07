@@ -1,7 +1,13 @@
 package com.github.jeremyrempel.gitnotes.android.vm
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.jeremyrempel.gitnotes.LogLevel
+import com.github.jeremyrempel.gitnotes.android.ui.ContentsUi
+import com.github.jeremyrempel.gitnotes.android.util.SingleLiveEvent
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
+import com.github.jeremyrempel.gitnotes.log
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
@@ -11,31 +17,45 @@ class ContentsViewModel @Inject constructor(
     private val actions: ContentsActions
 ) : ContentsView, ViewModel() {
 
-    fun requestData(path: String?) {
-        actions.onRequestData(path)
+    private val data = MutableLiveData<ContentsUi>()
+    private val showLoading = MutableLiveData<Boolean>()
+    private val showError = MutableLiveData<String>()
+    private val navEvent = SingleLiveEvent<NavScreen>()
+
+    // todo add a check, don't request data if already requested
+    fun requestData(path: String?) = actions.onRequestData(path)
+
+    fun onSelectItem(item: ContentsResponseRow) = actions.onSelectItem(item)
+
+    override fun onUpdate(result: List<ContentsResponseRow>) {
+        data.value = ContentsUi.Multiple(result)
     }
 
-    fun onSelectItem(item: ContentsResponseRow) {
-        actions.onSelectItem(item)
-    }
-
-    override fun onUpdate(data: List<ContentsResponseRow>) {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onUpdate(data: ContentsResponseRow) {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    override fun onUpdate(result: ContentsResponseRow) {
+        data.value = ContentsUi.Single(result)
     }
 
     override fun navigateTo(screen: NavScreen) {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        navEvent.value = screen
     }
 
     override var isUpdating: Boolean
-        get() = TODO("not implemented") // To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
+        get() = false
+        set(value) {
+            showLoading.value = value
+        }
 
     override fun onError(error: Throwable) {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        log(LogLevel.ERROR, TAG, "Get content error", error)
+        showError.value = error.message
+    }
+
+    fun getData(): LiveData<ContentsUi> = data
+    fun isLoading(): LiveData<Boolean> = showLoading
+    fun isError(): LiveData<String> = showError
+    fun navEvent(): LiveData<NavScreen> = navEvent
+
+    companion object {
+        const val TAG = "ContentsViewModel"
     }
 }
