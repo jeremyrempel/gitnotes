@@ -20,22 +20,22 @@ class ContentsViewModel @Inject constructor(
     }
 
     override fun onUpdate(data: List<ContentsResponseRow>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onUpdate(data: ContentsResponseRow) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun navigateTo(screen: NavScreen) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override var isUpdating: Boolean
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        get() = TODO("not implemented") // To change initializer of created properties use File | Settings | File Templates.
         set(value) {}
 
     override fun onError(error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

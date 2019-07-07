@@ -53,12 +53,15 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
     implementation "androidx.recyclerview:recyclerview:$androidx_recycler_version"
-    implementation 'androidx.core:core-ktx:1.2.0-alpha02'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
     implementation "io.ktor:ktor-client-okhttp:$ktor_version"
     implementation "com.google.dagger:dagger:$dagger_version"
+
+    // ktx
+    implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "androidx.fragment:fragment-ktx:$ktx_version"
 
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     compileOnly 'javax.annotation:jsr250-api:1.0'
