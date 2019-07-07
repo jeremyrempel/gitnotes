@@ -1,5 +1,5 @@
 import com.github.jeremyrempel.gitnotes.api.Fakes
-import com.github.jeremyrempel.gitnotes.api.GitHubFakeError
+import com.github.jeremyrempel.gitnotes.api.GithubApiFakeError
 import com.github.jeremyrempel.gitnotes.api.GithubApiFake
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
@@ -35,7 +35,7 @@ class ContentsPresenterTest {
     fun `on request data error update view`() {
         val presenter = ContentsPresenter(
             testContext,
-            GitHubFakeError(),
+            GithubApiFakeError(),
             Fakes.Repo
         )
         presenter.view = view
@@ -47,10 +47,5 @@ class ContentsPresenterTest {
             view setProperty "isUpdating" value false
 //            view.onError(any())
         }
-    }
-
-    @Test
-    fun test() {
-
     }
 }

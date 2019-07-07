@@ -11,7 +11,6 @@ class ContentsViewModel @Inject constructor(
     private val actions: ContentsActions
 ) : ContentsView, ViewModel() {
 
-
     fun requestData(path: String?) {
         actions.onRequestData(path)
     }

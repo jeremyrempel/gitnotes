@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,10 @@ import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlin.properties.Delegates
 
-class ContentsListFragment(private val actions: ContentsActions) : Fragment(), ContentsView {
+class ContentsListFragment(
+    private val actions: ContentsActions,
+    private val vmFactory: ViewModelProvider.Factory
+) : Fragment(), ContentsView {
 
     private lateinit var listAdapter: ContentsResponseListAdapter
     private var navigationCallback: NavigationCallback? = null

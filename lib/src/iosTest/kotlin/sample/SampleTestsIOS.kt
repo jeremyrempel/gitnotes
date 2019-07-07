@@ -3,7 +3,6 @@ package sample
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.test.Test
-import kotlin.test.assertTrue
 
 data class WorkerDataClass(val name: String, val desc: String)
 

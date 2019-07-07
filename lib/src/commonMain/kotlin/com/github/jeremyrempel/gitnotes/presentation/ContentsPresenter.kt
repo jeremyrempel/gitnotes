@@ -34,7 +34,6 @@ class ContentsPresenter(
                 is ContentsResponse.ListResponse -> view.onUpdate(response.data.sortedBy { it.name })
                 is ContentsResponse.ObjectResponse -> view.onUpdate(response.data)
             }
-
         }.invokeOnCompletion {
             view.isUpdating = false
         }
