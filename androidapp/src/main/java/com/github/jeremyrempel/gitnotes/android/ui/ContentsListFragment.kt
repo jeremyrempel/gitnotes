@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.LogLevel
 import com.github.jeremyrempel.gitnotes.android.NavigationCallback
 import com.github.jeremyrempel.gitnotes.android.R
+import com.github.jeremyrempel.gitnotes.android.vm.ContentsViewModel
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.log
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
@@ -62,6 +64,8 @@ class ContentsListFragment(
         }
 
         listAdapter = ContentsResponseListAdapter(actions::onSelectItem)
+
+        val viewModel by viewModels<ContentsViewModel> { vmFactory }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
