@@ -36,7 +36,7 @@ class ViewController: UITableViewController, ContentsView {
 
     var isUpdating: Bool = false
     
-    func showError(error: KotlinThrowable) {
+    func onError(error: KotlinThrowable) {
     }
     
     func onUpdate(data: [ContentsResponse]) {
