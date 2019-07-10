@@ -38,4 +38,6 @@ class ContentsPresenter(
             view.isUpdating = false
         }
     }
+
+    override fun onError(error: Throwable) = view.onError(error)
 }
