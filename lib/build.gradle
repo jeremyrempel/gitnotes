@@ -7,10 +7,10 @@ apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 version = "1.0"
 
 android {
-    compileSdkVersion project.android_compilesdk.toInteger()
+    compileSdkVersion AndroidSdk.compile
     defaultConfig {
-        minSdkVersion project.android_minsdk.toInteger()
-        targetSdkVersion project.android_targetsdk.toInteger()
+        minSdkVersion AndroidSdk.min
+        targetSdkVersion AndroidSdk.target
     }
     buildTypes {
         release {

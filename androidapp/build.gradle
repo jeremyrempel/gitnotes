@@ -10,12 +10,11 @@ configurations.all {
 }
 
 android {
-    compileSdkVersion project.android_compilesdk.toInteger()
+    compileSdkVersion AndroidSdk.compile
     defaultConfig {
         applicationId "com.github.jeremyrempel.gitnotes.android"
-        compileSdkVersion project.android_compilesdk.toInteger()
-        minSdkVersion project.android_minsdk.toInteger()
-        targetSdkVersion project.android_targetsdk.toInteger()
+        minSdkVersion AndroidSdk.target
+        targetSdkVersion AndroidSdk.target
         versionCode 1
         versionName "1.0"
 
@@ -49,7 +48,7 @@ kotlin {
 dependencies {
     implementation project(':lib')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation Libraries.kotlinStdLib
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_conlayout_version"
     implementation "androidx.recyclerview:recyclerview:$androidx_recycler_version"

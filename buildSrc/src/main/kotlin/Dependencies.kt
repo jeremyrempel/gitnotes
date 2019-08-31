@@ -10,7 +10,8 @@ object BuildPlugins {
         "com.android.tools.build:gradle:${Versions.gradleAndroidVersion}"
     const val kotlinGradlePlugin =
         "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
-    const val kotlinxSerialization = "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlinVersion}"
+    const val kotlinxSerialization =
+        "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlinVersion}"
     const val kLintPlugin = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.klintVersion}"
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
@@ -19,7 +20,7 @@ object BuildPlugins {
 }
 
 object AndroidSdk {
-    const val min = 15
+    const val min = 24
     const val compile = 28
     const val target = compile
 }
