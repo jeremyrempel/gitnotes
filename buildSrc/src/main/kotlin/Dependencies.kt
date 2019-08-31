@@ -6,6 +6,8 @@ object BuildPlugins {
         const val klintVersion = "8.1.0"
         const val serialization = "0.11.1"
         const val ktor = "1.2.2"
+        const val coroutines = "1.3.0-M2"
+        const val mockk = "1.9.3"
     }
 
     const val androidGradlePlugin =
@@ -27,7 +29,6 @@ object AndroidSdk {
 object Libraries {
     private object Versions {
         const val ktx = "1.2.0-alpha01"
-        const val coroutines = "1.3.0-M2"
         const val appCompat = "1.1.0-beta01"
         const val dagger = "2.24"
         const val lifecycleExtensions = "2.2.0-alpha02"
@@ -36,22 +37,26 @@ object Libraries {
     object Android {
         // support
         const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
-        const val lifecycleExt = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
+        const val lifecycleExt =
+            "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
 
         // dagger
         const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
         const val daggerKapt = "com.google.dagger:dagger-compiler:${Versions.dagger}"
 
         // common impl
-        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
-        const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${BuildPlugins.Versions.serialization}"
+        const val coroutines =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:${BuildPlugins.Versions.coroutines}"
+        const val serialization =
+            "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${BuildPlugins.Versions.serialization}"
         const val ktorOkHttp = "io.ktor:ktor-client-okhttp:${BuildPlugins.Versions.ktor}"
         const val ktorJson = "io.ktor:ktor-client-json-jvm:${BuildPlugins.Versions.ktor}"
 
         // ktx
         const val ktxCore = "androidx.core:core-ktx:${Libraries.Versions.ktx}"
         const val ktxFragment = "androidx.fragment:fragment-ktx:${Libraries.Versions.ktx}"
-        const val ktxLifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Libraries.Versions.ktx}"
+        const val ktxLifecycle =
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:${Libraries.Versions.ktx}"
     }
 
     const val kotlinStdLib =
