@@ -9,10 +9,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath(kotlin("gradle-plugin", version = BuildPlugins.Versions.kotlinVersion))
-        classpath(kotlin("serialization", version = BuildPlugins.Versions.kotlinVersion))
-        classpath("com.android.tools.build:gradle:${BuildPlugins.Versions.gradleAndroidVersion}")
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:${BuildPlugins.Versions.klintVersion}")
+        classpath(BuildPlugins.kotlinxSerialization)
+        classpath(BuildPlugins.kotlinGradlePlugin)
+        classpath(BuildPlugins.androidGradlePlugin)
+        classpath(BuildPlugins.kLintPlugin)
     }
 }
 
