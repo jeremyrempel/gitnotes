@@ -7,8 +7,8 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'gitnotes'
+rootProject.name = "gitnotes"
 
-include ':lib', ':androidapp'
+include(":lib", ":androidapp")
 
-enableFeaturePreview('GRADLE_METADATA')
+enableFeaturePreview("GRADLE_METADATA")
