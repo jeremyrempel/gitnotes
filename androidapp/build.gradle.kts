@@ -36,6 +36,11 @@ android {
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 kotlin {
@@ -82,8 +87,4 @@ dependencies {
     testImplementation("androidx.test.ext:junit:1.1.2-alpha01")
     debugImplementation("androidx.fragment:fragment-testing:1.2.0-alpha01")
     testImplementation("org.robolectric:robolectric:4.3")
-}
-
-kapt {
-    correctErrorTypes = true
 }
