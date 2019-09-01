@@ -18,10 +18,10 @@ android {
         targetSdkVersion(AndroidSdk.target)
     }
     buildTypes {
-        named("release"){
+        named("release") {
             isMinifyEnabled = false
         }
-        named("debug"){
+        named("debug") {
             // MPP libraries don"t currently get this resolution automatically
             matchingFallbacks = listOf("release")
         }
@@ -34,11 +34,8 @@ android {
 }
 
 kotlin {
+    android()
     targets {
-        targets {
-            targetFromPreset(presets.getByName("android"), "androidapp")
-        }
-
         //select iOS target platform depending on the Xcode environment variables
         val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
             if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
@@ -48,56 +45,76 @@ kotlin {
 
         iOSTarget("ios") {
             binaries {
-                framework {
-                    baseName = "lib"
-                }
+                //                framework {
+//                    baseName = "lib"
+//                }
+            }
+        }
+    }
+    sourceSets {
+        all {
+            languageSettings.apply {
+                progressiveMode = true
+                useExperimentalAnnotation("kotlin.Experimental")
             }
         }
 
-        jvm("android")
-    }
-    sourceSets {
-        sourceSets["commonMain"].dependencies {
-            api(kotlin("stdlib", KotlinCompilerVersion.VERSION))
-            implementation("io.ktor:ktor-client-core:${BuildPlugins.Versions.ktor}")
-            implementation("io.ktor:ktor-client-json:${BuildPlugins.Versions.ktor}")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${BuildPlugins.Versions.coroutines}")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${BuildPlugins.Versions.serialization}")
-        }
-        sourceSets["commonTest"].dependencies {
-            implementation("io.ktor:ktor-client-mock:${BuildPlugins.Versions.ktor}")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${BuildPlugins.Versions.coroutines}")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${BuildPlugins.Versions.coroutines}")
-            implementation("io.mockk:mockk-common:${BuildPlugins.Versions.mockk}")
+        (targets["ios"] as KotlinNativeTarget).compilations["main"].extraOpts.add("-Xobjc-generics")
 
-            implementation(kotlin("test"))
-            implementation(kotlin("test-junit"))
+        commonMain {
+            dependencies {
+                api(kotlin("stdlib", KotlinCompilerVersion.VERSION))
+                implementation("io.ktor:ktor-client-core:${BuildPlugins.Versions.ktor}")
+                implementation("io.ktor:ktor-client-json:${BuildPlugins.Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${BuildPlugins.Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${BuildPlugins.Versions.serialization}")
+            }
         }
-        sourceSets["androidMain"].dependencies {
-            api(kotlin("stdlib", KotlinCompilerVersion.VERSION))
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${BuildPlugins.Versions.coroutines}")
-            implementation("io.ktor:ktor-client-json-jvm:${BuildPlugins.Versions.ktor}")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${BuildPlugins.Versions.serialization}")
-        }
-        sourceSets["androidTest"].dependencies {
-            implementation("io.ktor:ktor-client-mock-jvm:${BuildPlugins.Versions.ktor}")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${BuildPlugins.Versions.serialization}")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${BuildPlugins.Versions.coroutines}")
-            implementation("io.mockk:mockk:${BuildPlugins.Versions.mockk}")
+        commonTest {
+            dependencies {
+                implementation("io.ktor:ktor-client-mock:${BuildPlugins.Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${BuildPlugins.Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${BuildPlugins.Versions.coroutines}")
+                implementation("io.mockk:mockk-common:${BuildPlugins.Versions.mockk}")
 
-            implementation("com.android.support.test:runner:1.0.2")
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
         }
-        sourceSets["iosMain"].dependencies {
-            implementation("io.ktor:ktor-client-ios:${BuildPlugins.Versions.ktor}")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${BuildPlugins.Versions.serialization}")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${BuildPlugins.Versions.coroutines}")
+        val androidMain by getting {
+            dependencies {
+                api(kotlin("stdlib", KotlinCompilerVersion.VERSION))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${BuildPlugins.Versions.coroutines}")
+                implementation("io.ktor:ktor-client-json-jvm:${BuildPlugins.Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${BuildPlugins.Versions.serialization}")
+            }
         }
-        sourceSets["iosTest"].dependencies {
-            implementation("io.ktor:ktor-client-mock-native:${BuildPlugins.Versions.ktor}")
-            implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${BuildPlugins.Versions.serialization}")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${BuildPlugins.Versions.coroutines}")
+        val androidTest by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-mock-jvm:${BuildPlugins.Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${BuildPlugins.Versions.serialization}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${BuildPlugins.Versions.coroutines}")
+                implementation("io.mockk:mockk:${BuildPlugins.Versions.mockk}")
+
+                implementation("com.android.support.test:runner:1.0.2")
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:${BuildPlugins.Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${BuildPlugins.Versions.serialization}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${BuildPlugins.Versions.coroutines}")
+            }
+        }
+        val iosTest by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-mock-native:${BuildPlugins.Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${BuildPlugins.Versions.serialization}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${BuildPlugins.Versions.coroutines}")
+            }
         }
     }
+}
 
 //    val cocoapods by tasks.creating(CocoapodsExtension::class) {
 //        // Configure fields required by CocoaPods.
@@ -105,22 +122,15 @@ kotlin {
 //        homepage = "Link to a Kotlin/Native module homepage"
 //    }
 
-    val iosTest by tasks.creating(Sync::class) {
-        val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-        dependsOn("iosTestBinaries")
-        group = JavaBasePlugin.VERIFICATION_GROUP
-        description = "Runs tests for target 'ios' on an iOS simulator"
-
-        doLast {
-            val binary = kotlin.targets["ios"].compilations["DEBUG"].output.allOutputs.singleFile
-//            val binary = kotlin.targets.ios.binaries.getTest("DEBUG").outputFile
-            exec {
-                commandLine("xcrun", "simctl", "spawn", device, binary.absolutePath)
-            }
+tasks.create("iosTest") {
+    val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    dependsOn("linkDebugTestIos")
+    doLast {
+        val testBinaryPath =
+            (kotlin.targets["ios"] as KotlinNativeTarget).binaries.getTest("DEBUG").outputFile.absolutePath
+        exec {
+            commandLine("xcrun", "simctl", "spawn", device, testBinaryPath)
         }
     }
-
-    tasks.named("check") {
-        dependsOn("iosTest")
-    }
 }
+tasks["check"].dependsOn("iosTest")
