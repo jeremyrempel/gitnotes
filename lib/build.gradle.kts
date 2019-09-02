@@ -133,4 +133,4 @@ tasks.create("iosTest") {
         }
     }
 }
-tasks["check"].dependsOn("iosTest")
+//tasks["check"].dependsOn("iosTest")
