@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
     id("kotlin-multiplatform")
@@ -39,6 +41,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     lintOptions {
         isWarningsAsErrors = true
     }
@@ -55,7 +58,6 @@ kotlin {
 dependencies {
     implementation(Libraries.kotlinStdLib)
     implementation(project(":lib"))
-    implementation("androidx.constraintlayout:constraintlayout:1.1.2")
     implementation("androidx.recyclerview:recyclerview:1.0.0")
 
     Libraries.Android.apply {
@@ -75,6 +77,7 @@ dependencies {
         implementation(lifecycleExt)
         implementation(drawer)
         implementation(appCompat)
+        implementation(constraintLayout)
         navigation()
 
         implementation("com.google.android.material:material:1.0.0")
@@ -84,12 +87,18 @@ dependencies {
 
     compileOnly("javax.annotation:jsr250-api:1.0")
 
-    testImplementation("androidx.test.espresso:espresso-core:3.3.0-alpha01")
+    testImplementation("androidx.test.espresso:espresso-core:3.3.0-alpha02")
     testImplementation("junit:junit:4.13-beta-3")
-    testImplementation("androidx.test:core:1.2.1-alpha01")
-    testImplementation("androidx.test:runner:1.3.0-alpha01")
-    testImplementation("androidx.test:rules:1.3.0-alpha01")
-    testImplementation("androidx.test.ext:junit:1.1.2-alpha01")
-    debugImplementation("androidx.fragment:fragment-testing:1.2.0-alpha01")
+    testImplementation("androidx.test:core:1.2.1-alpha02")
+    testImplementation("androidx.test:runner:1.3.0-alpha02")
+    testImplementation("androidx.test:rules:1.3.0-alpha02")
+    testImplementation("androidx.test.ext:junit:1.1.2-alpha02")
+    debugImplementation("androidx.fragment:fragment-testing:1.2.0-alpha02")
     testImplementation("org.robolectric:robolectric:4.3")
+}
+
+tasks.withType(KotlinCompile::class.java).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
     @Test
-    @Ignore
+    @Ignore("fix me")
     fun `test main activity launches`() {
         launch(MainActivity::class.java)
     }
