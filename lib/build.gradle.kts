@@ -36,7 +36,7 @@ android {
 kotlin {
     android()
     targets {
-        //select iOS target platform depending on the Xcode environment variables
+        // select iOS target platform depending on the Xcode environment variables
         val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
             if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
                 ::iosArm64
@@ -133,4 +133,4 @@ tasks.create("iosTest") {
         }
     }
 }
-tasks["check"].dependsOn("iosTest")
+// tasks["check"].dependsOn("iosTest")
