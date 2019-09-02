@@ -17,7 +17,7 @@ class ContentsViewModel @Inject constructor(
     private val actions: ContentsActions
 ) : ContentsView, ViewModel() {
 
-    private val data = MutableLiveData<ContentsUi>()
+    private val dataList = MutableLiveData<ContentsUi>()
     private val showLoading = MutableLiveData<Boolean>()
     private val showError = MutableLiveData<String>()
     private val navEvent = SingleLiveEvent<NavScreen>()
@@ -27,12 +27,12 @@ class ContentsViewModel @Inject constructor(
 
     fun onSelectItem(item: ContentsResponseRow) = actions.onSelectItem(item)
 
-    override fun onUpdate(result: List<ContentsResponseRow>) {
-        data.value = ContentsUi.Multiple(result)
+    override fun onUpdate(responseData: List<ContentsResponseRow>) {
+        dataList.value = ContentsUi.Multiple(responseData)
     }
 
-    override fun onUpdate(result: ContentsResponseRow) {
-        data.value = ContentsUi.Single(result)
+    override fun onUpdate(responseData: ContentsResponseRow) {
+        dataList.value = ContentsUi.Single(responseData)
     }
 
     override fun navigateTo(screen: NavScreen) {
@@ -50,7 +50,7 @@ class ContentsViewModel @Inject constructor(
         showError.value = error.message
     }
 
-    fun getData(): LiveData<ContentsUi> = data
+    fun getData(): LiveData<ContentsUi> = dataList
     fun isLoading(): LiveData<Boolean> = showLoading
     fun isError(): LiveData<String> = showError
     fun navEvent(): LiveData<NavScreen> = navEvent

@@ -4,8 +4,8 @@ import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 
 interface ContentsView : BaseView {
-    fun onUpdate(data: List<ContentsResponseRow>)
-    fun onUpdate(data: ContentsResponseRow)
+    fun onUpdate(responseData: List<ContentsResponseRow>)
+    fun onUpdate(responseData: ContentsResponseRow)
     fun navigateTo(screen: NavScreen)
 }
 
