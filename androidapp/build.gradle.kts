@@ -70,7 +70,11 @@ dependencies {
 
         // support
         implementation(lifecycleExt)
+        implementation(drawer)
         implementation(appCompat)
+        navigation()
+
+        implementation("com.google.android.material:material:1.0.0")
 
         "kapt"(daggerKapt)
     }

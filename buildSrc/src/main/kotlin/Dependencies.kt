@@ -1,3 +1,5 @@
+import org.gradle.api.artifacts.dsl.DependencyHandler
+
 object BuildPlugins {
 
     object Versions {
@@ -32,11 +34,14 @@ object Libraries {
         const val appCompat = "1.1.0-beta01"
         const val dagger = "2.24"
         const val lifecycleExtensions = "2.2.0-alpha02"
+        const val drawerLayout = "1.0.0"
+        const val navigation = "2.0.0"
     }
 
     object Android {
-        // support
+        // androidx
         const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+        const val drawer = "androidx.drawerlayout:drawerlayout:${Versions.drawerLayout}"
         const val lifecycleExt =
             "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
 
@@ -57,6 +62,14 @@ object Libraries {
         const val ktxFragment = "androidx.fragment:fragment-ktx:${Libraries.Versions.ktx}"
         const val ktxLifecycle =
             "androidx.lifecycle:lifecycle-viewmodel-ktx:${Libraries.Versions.ktx}"
+
+        fun DependencyHandler.navigation() {
+            add(
+                "implementation",
+                "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+            )
+            add("implementation", "androidx.navigation:navigation-ui-ktx:${Versions.navigation}")
+        }
     }
 
     const val kotlinStdLib =
