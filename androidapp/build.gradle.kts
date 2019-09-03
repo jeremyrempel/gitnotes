@@ -79,8 +79,7 @@ dependencies {
         implementation(appCompat)
         implementation(constraintLayout)
         navigation()
-
-        implementation("com.google.android.material:material:1.0.0")
+        implementation(material)
 
         "kapt"(daggerKapt)
     }

@@ -37,6 +37,7 @@ object Libraries {
         const val drawerLayout = "1.0.0"
         const val navigation = "2.0.0"
         const val constraintLayout = "1.1.3"
+        const val material = "1.0.0"
     }
 
     object Android {
@@ -47,6 +48,9 @@ object Libraries {
             "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+
+        // material design
+        const val material = "com.google.android.material:material:${Versions.material}"
 
         // dagger
         const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
