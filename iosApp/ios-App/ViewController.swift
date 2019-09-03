@@ -13,7 +13,7 @@ class ViewController: UITableViewController, ContentsView {
 
     var data: [ContentsResponseRow] = Array()
     
-    func onUpdate(data: [ContentsResponseRow]) {
+    func onUpdate(responseData data: [ContentsResponseRow]) {
         self.data = data
         
 //        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
@@ -31,7 +31,7 @@ class ViewController: UITableViewController, ContentsView {
         self.tableView.reloadData()
     }
     
-    func onUpdate(data_ data: ContentsResponseRow) {
+    func onUpdate(responseData_ data: ContentsResponseRow) {
     }
 
     var isUpdating: Bool = false
@@ -66,7 +66,6 @@ class ViewController: UITableViewController, ContentsView {
         let apiUrl:String = "https://api.github.com"
         
         let uiContext = UI()
-        let contentsView = self
         
         let service: GithubApi = DIKt.getService(client: client, apiUrl: apiUrl)
         let presenter = ContentsPresenter(uiContext: uiContext, api: service, repoInfo: repoInfo)
