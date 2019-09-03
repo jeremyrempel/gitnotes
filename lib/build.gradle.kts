@@ -1,5 +1,7 @@
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.config.KotlinCompilerVersion
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.Family
 
 plugins {
     kotlin("multiplatform")
@@ -124,13 +126,16 @@ kotlin {
 //    }
 
 tasks.create("iosTest") {
-    val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-    dependsOn("linkDebugTestIos")
-    doLast {
-        val testBinaryPath =
-            (kotlin.targets["ios"] as KotlinNativeTarget).binaries.getTest("DEBUG").outputFile.absolutePath
-        exec {
-            commandLine("xcrun", "simctl", "spawn", device, testBinaryPath)
+    if (Os.isFamily(Os.FAMILY_MAC)) {
+        val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+        dependsOn("linkDebugTestIos")
+        doLast {
+            val testBinaryPath =
+                (kotlin.targets["ios"] as KotlinNativeTarget).binaries.getTest("DEBUG")
+                    .outputFile.absolutePath
+            exec {
+                commandLine("xcrun", "simctl", "spawn", device, testBinaryPath)
+            }
         }
     }
 }

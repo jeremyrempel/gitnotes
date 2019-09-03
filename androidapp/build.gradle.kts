@@ -102,5 +102,3 @@ tasks.withType(KotlinCompile::class.java).all {
         jvmTarget = "1.8"
     }
 }
-
-tasks["check"].dependsOn("detekt")
