@@ -3,12 +3,12 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 object BuildPlugins {
 
     object Versions {
-        const val kotlinVersion = "1.3.41"
+        const val kotlinVersion = "1.3.50"
         const val gradleAndroidVersion = "3.6.0-alpha09"
         const val klintVersion = "8.1.0"
-        const val serialization = "0.11.1"
-        const val ktor = "1.2.2"
-        const val coroutines = "1.3.0-M2"
+        const val serialization = "0.12.0"
+        const val ktor = "1.2.4"
+        const val coroutines = "1.3.0"
         const val mockk = "1.9.3"
     }
 
