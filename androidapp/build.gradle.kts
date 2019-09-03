@@ -5,6 +5,7 @@ plugins {
     id("kotlin-multiplatform")
     id("kotlin-android-extensions")
     id("org.jetbrains.kotlin.kapt")
+    id("io.gitlab.arturbosch.detekt").version(BuildPlugins.Versions.detekt)
 }
 
 configurations.all {
@@ -101,3 +102,5 @@ tasks.withType(KotlinCompile::class.java).all {
         jvmTarget = "1.8"
     }
 }
+
+tasks["check"].dependsOn("detekt")

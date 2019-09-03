@@ -10,6 +10,7 @@ object BuildPlugins {
         const val ktor = "1.2.4"
         const val coroutines = "1.3.0"
         const val mockk = "1.9.3"
+        const val detekt = "1.0.1"
     }
 
     const val androidGradlePlugin =
