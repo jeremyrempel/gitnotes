@@ -16,7 +16,7 @@ configurations.all {
 android {
     compileSdkVersion(AndroidSdk.compile)
     defaultConfig {
-        applicationId = "com.github.jeremyrempel.gitnotes.android"
+        applicationId = BuildPlugins.androidApplication
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
         versionCode = 1
