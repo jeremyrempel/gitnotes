@@ -6,6 +6,7 @@ plugins {
     id("kotlinx-serialization")
     id("com.android.library")
     id("org.jetbrains.kotlin.native.cocoapods")
+    id("io.gitlab.arturbosch.detekt").version(BuildPlugins.Versions.detekt)
 }
 
 // CocoaPods requires the podspec to have a version.
