@@ -83,6 +83,9 @@ dependencies {
         implementation(material)
 
         "kapt"(daggerKapt)
+
+        // testing
+        debugImplementation(fragmentTesting)
     }
 
     compileOnly("javax.annotation:jsr250-api:1.0")
@@ -93,7 +96,6 @@ dependencies {
     testImplementation("androidx.test:runner:1.3.0-alpha02")
     testImplementation("androidx.test:rules:1.3.0-alpha02")
     testImplementation("androidx.test.ext:junit:1.1.2-alpha02")
-    debugImplementation("androidx.fragment:fragment-testing:1.2.0-alpha02")
     testImplementation("org.robolectric:robolectric:4.3")
 }
 

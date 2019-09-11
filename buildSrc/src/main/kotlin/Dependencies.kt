@@ -39,6 +39,7 @@ object Libraries {
         const val navigation = "2.0.0"
         const val constraintLayout = "1.1.3"
         const val material = "1.1.0-alpha10"
+        const val fragmentTesting = "1.2.0-alpha02"
     }
 
     object Android {
@@ -66,10 +67,12 @@ object Libraries {
         const val ktorJson = "io.ktor:ktor-client-json-jvm:${BuildPlugins.Versions.ktor}"
 
         // ktx
-        const val ktxCore = "androidx.core:core-ktx:${Libraries.Versions.ktx}"
-        const val ktxFragment = "androidx.fragment:fragment-ktx:${Libraries.Versions.ktx}"
+        const val ktxCore = "androidx.core:core-ktx:${Versions.ktx}"
+        const val ktxFragment = "androidx.fragment:fragment-ktx:${Versions.ktx}"
         const val ktxLifecycle =
-            "androidx.lifecycle:lifecycle-viewmodel-ktx:${Libraries.Versions.ktx}"
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.ktx}"
+
+        const val fragmentTesting = "androidx.fragment:fragment-testing:${Versions.fragmentTesting}"
 
         fun DependencyHandler.navigation() {
             add(
