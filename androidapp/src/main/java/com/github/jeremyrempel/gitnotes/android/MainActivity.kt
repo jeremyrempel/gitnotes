@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
         setupNavDrawer()
 
         if (savedInstanceState == null) {
-            navigateTo(List("/"))
+            navigateTo(List("/", false))
         }
     }
 
@@ -54,12 +55,28 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        drawer.addDrawerListener(toggle)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    private fun showBackButton(enable: Boolean) {
+        if (enable) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            toggle.isDrawerIndicatorEnabled = false
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            toggle.toolbarNavigationClickListener = View.OnClickListener {
+                onBackPressed()
+                if (supportFragmentManager.backStackEntryCount <= 1) {
+                    showBackButton(false)
+                }
+            }
+        } else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            toggle.isDrawerIndicatorEnabled = true
+            toggle.toolbarNavigationClickListener = null
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -81,15 +98,15 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_settings -> navigateTo(NavScreen.Settings)
-            R.id.nav_about -> navigateTo(NavScreen.About)
+            R.id.nav_settings -> navigateTo(NavScreen.Settings())
+            R.id.nav_about -> navigateTo(NavScreen.About())
             R.id.nav_github -> {
                 val url = Config.GITHUB_URL
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse(url)
                 startActivity(i)
             }
-            R.id.nav_mynotes -> navigateTo(List(null))
+            R.id.nav_mynotes -> navigateTo(List(null, false))
         }
         return true
     }
@@ -117,6 +134,7 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
             }
         }
 
+        showBackButton(screen.showBackButton)
         drawer.closeDrawers()
 
         supportFragmentManager
@@ -149,8 +167,4 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
                 SettingsFragment::class.java.canonicalName!!
             )
     }
-}
-
-interface NavigationCallback {
-    fun navigateTo(screen: NavScreen)
 }

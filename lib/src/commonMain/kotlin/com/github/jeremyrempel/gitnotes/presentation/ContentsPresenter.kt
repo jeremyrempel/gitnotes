@@ -17,7 +17,7 @@ class ContentsPresenter(
     lateinit var view: ContentsView
 
     override fun onSelectItem(item: ContentsResponseRow) {
-        view.navigateTo(NavScreen.List(item.path))
+        view.navigateTo(NavScreen.List(item.path, true))
     }
 
     /**
