@@ -38,7 +38,7 @@ object Libraries {
         const val drawerLayout = "1.0.0"
         const val navigation = "2.0.0"
         const val constraintLayout = "1.1.3"
-        const val material = "1.0.0"
+        const val material = "1.1.0-alpha10"
     }
 
     object Android {
