@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="androidapp-android">
+    <output-path>$PROJECT_DIR$/androidapp/build/libs</output-path>
+    <root id="archive" name="androidapp-android.jar">
+      <element id="module-output" name="gitnotes.androidapp.androidMain" />
+    </root>
+  </artifact>
+</component>
