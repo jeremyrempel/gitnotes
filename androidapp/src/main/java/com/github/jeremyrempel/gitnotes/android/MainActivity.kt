@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        //drawer.addDrawerListener(toggle)
+        drawer.addDrawerListener(toggle)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
