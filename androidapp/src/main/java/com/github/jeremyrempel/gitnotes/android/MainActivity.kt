@@ -35,14 +35,11 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_main)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.frame, buildContentsListFragment())
-                .commitNow()
-        }
-
         setupNavDrawer()
+
+        if (savedInstanceState == null) {
+            navigateTo(List("/"))
+        }
     }
 
     private fun setupNavDrawer() {
@@ -100,6 +97,7 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
     override fun navigateTo(screen: NavScreen) {
         val frag = when (screen) {
             is List -> {
+                title = getString(R.string.title_home)
                 val frag = buildContentsListFragment()
 
                 Bundle().apply {
@@ -110,9 +108,11 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
                 frag
             }
             is NavScreen.About -> {
+                title = getString(R.string.title_about)
                 buildAboutFragment()
             }
             is NavScreen.Settings -> {
+                title = getString(R.string.title_settings)
                 buildSettingsFragment()
             }
         }
