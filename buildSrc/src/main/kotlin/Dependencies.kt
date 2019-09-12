@@ -8,7 +8,7 @@ object BuildPlugins {
         const val klintVersion = "8.2.0"
         const val serialization = "0.12.0"
         const val ktor = "1.2.4"
-        const val coroutines = "1.3.0"
+        const val coroutines = "1.3.1"
         const val mockk = "1.9.3"
         const val detekt = "1.0.1"
     }
