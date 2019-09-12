@@ -2,6 +2,7 @@ package com.github.jeremyrempel.gitnotes.presentation
 
 import com.github.jeremyrempel.gitnotes.api.Fakes
 import com.github.jeremyrempel.gitnotes.api.GithubApiFake
+import com.github.jeremyrempel.gitnotes.presentation.mock.ContentsViewMock
 import com.github.jeremyrempel.gitnotes.runBlockingTest
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.test.Test
@@ -28,4 +29,3 @@ class ContentsPresenterTest {
         assertEquals(api.data.data, viewMock.lastResponse)
     }
 }
-

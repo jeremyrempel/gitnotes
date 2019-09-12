@@ -1,7 +1,8 @@
-package com.github.jeremyrempel.gitnotes.presentation
+package com.github.jeremyrempel.gitnotes.presentation.mock
 
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
+import com.github.jeremyrempel.gitnotes.presentation.ContentsView
 import kotlin.properties.Delegates
 
 class ContentsViewMock : ContentsView {
@@ -20,14 +21,14 @@ class ContentsViewMock : ContentsView {
     }
 
     override fun onUpdate(responseData: ContentsResponseRow) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented")
     }
 
     override fun navigateTo(screen: NavScreen) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented")
     }
 
     override fun onError(error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented")
     }
 }

@@ -29,7 +29,6 @@ class ContentsPresenter(
         view.isUpdating = true
 
         launch(coroutineContext) {
-
             when (val response = api.getContents(repoInfo, path)) {
                 is ContentsResponse.ListResponse -> view.onUpdate(response.data.sortedBy { it.name })
                 is ContentsResponse.ObjectResponse -> view.onUpdate(response.data)
