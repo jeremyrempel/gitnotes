@@ -9,14 +9,16 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class FragFactory @Inject constructor(
-    private val listFragProvider: Provider<ContentsListFragment>
+    private val listFragProvider: Provider<ContentsListFragment>,
+    private val aboutFragProvider: Provider<AboutFragment>,
+    private val settingsFragProvider: Provider<SettingsFragment>
 ) : FragmentFactory() {
 
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (className) {
             ContentsListFragment::class.java.canonicalName -> listFragProvider.get()
-            AboutFragment::class.java.canonicalName -> AboutFragment()
-            SettingsFragment::class.java.canonicalName -> SettingsFragment()
+            AboutFragment::class.java.canonicalName -> aboutFragProvider.get()
+            SettingsFragment::class.java.canonicalName -> settingsFragProvider.get()
             else -> TODO("Missing fragment $className")
         }
     }
