@@ -16,6 +16,7 @@
 			dependencies = (
 			);
 			name = lib;
+			productName = lib;
 		};
 /* End PBXAggregateTarget section */
 
@@ -38,14 +39,14 @@
 /* Begin PBXFileReference section */
 		04AA29DE902767858D58C5E7601834BA /* Pods-ios-App.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ios-App.modulemap"; sourceTree = "<group>"; };
 		170D7CFD56B4F3E88485A4E2BA01D4DD /* Pods-ios-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-App.release.xcconfig"; sourceTree = "<group>"; };
-		21BC2C7DB9C77535FBD09BB39579A5A0 /* lib.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = lib.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		21BC2C7DB9C77535FBD09BB39579A5A0 /* lib.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = lib.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		4FF1DDCBFBBABB7D4858330AAD3B14DF /* Pods-ios-App-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ios-App-acknowledgements.plist"; sourceTree = "<group>"; };
-		619D6AB3FB1D5EEE8F6D8CC89CED48CE /* Pods_ios_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ios_App.framework; path = "Pods-ios-App.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		619D6AB3FB1D5EEE8F6D8CC89CED48CE /* Pods_ios_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B94B35C8BE18573B8A7389AFFC5981B /* lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = lib.framework; path = build/cocoapods/framework/lib.framework; sourceTree = "<group>"; };
 		74FB204F67E680E99AEBFC6B95EA917F /* Pods-ios-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ios-App.debug.xcconfig"; sourceTree = "<group>"; };
 		9B98676D7E08FFC484327462F6A679F5 /* Pods-ios-App-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ios-App-acknowledgements.markdown"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B3193EAAC9B1A3FD885E1789D15E2D74 /* lib.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = lib.xcconfig; sourceTree = "<group>"; };
 		B359A1FFC2B2AEF41258A6139F79C990 /* Pods-ios-App-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ios-App-dummy.m"; sourceTree = "<group>"; };
 		E2D81B2916134B74919279F2D9C94E3F /* Pods-ios-App-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ios-App-umbrella.h"; sourceTree = "<group>"; };
@@ -215,6 +216,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = DB6785AEF63D336D97C68ED804B93BA9 /* Products */;

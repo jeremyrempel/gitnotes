@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0749FD1B234A7E85004E153D /* SettingsRepoSharedPref.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749FD1A234A7E85004E153D /* SettingsRepoSharedPref.swift */; };
 		074B6C6B2299862E00940621 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074B6C6A2299862E00940621 /* UI.swift */; };
 		078FAA4022919AD90046803B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FAA3F22919AD90046803B /* AppDelegate.swift */; };
 		078FAA4222919AD90046803B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FAA4122919AD90046803B /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0749FD1A234A7E85004E153D /* SettingsRepoSharedPref.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepoSharedPref.swift; sourceTree = "<group>"; };
 		074B6C6A2299862E00940621 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		078FAA3C22919AD90046803B /* ios-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		078FAA3F22919AD90046803B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				078FAA4622919ADB0046803B /* Assets.xcassets */,
 				078FAA4822919ADB0046803B /* LaunchScreen.storyboard */,
 				078FAA4B22919ADB0046803B /* Info.plist */,
+				0749FD1A234A7E85004E153D /* SettingsRepoSharedPref.swift */,
 			);
 			path = "ios-App";
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			files = (
 				078FAA4222919AD90046803B /* ViewController.swift in Sources */,
 				078FAA4022919AD90046803B /* AppDelegate.swift in Sources */,
+				0749FD1B234A7E85004E153D /* SettingsRepoSharedPref.swift in Sources */,
 				074B6C6B2299862E00940621 /* UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

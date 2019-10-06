@@ -29,7 +29,6 @@ class ContentsPresenter(
     private fun updateData(path: String? = null) {
         view.isUpdating = true
 
-        // todo get from settings repo
         val repoInfo = settingsRepo.getRepoInfo()
 
         launch(coroutineContext) {

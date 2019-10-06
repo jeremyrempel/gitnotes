@@ -61,14 +61,14 @@ class ViewController: UITableViewController, ContentsView {
         // Do any additional setup after loading the view.
         
         // todo dependency injection
-        let repoInfo = RepoInfo(user: "jeremyrempel", repo: "gitnotestest")
         let client:Ktor_client_coreHttpClient = DIKt.getHttpClient()
         let apiUrl:String = "https://api.github.com"
+        let settingsRepo = SettingsRepoSharedPref()
         
         let uiContext = UI()
-        
+                
         let service: GithubApi = DIKt.getService(client: client, apiUrl: apiUrl)
-        let presenter = ContentsPresenter(uiContext: uiContext, api: service, repoInfo: repoInfo)
+        let presenter = ContentsPresenter(uiContext: uiContext, api: service, settingsRepo: settingsRepo)
         presenter.view = self
         
         presenter.onRequestData(path: nil)
