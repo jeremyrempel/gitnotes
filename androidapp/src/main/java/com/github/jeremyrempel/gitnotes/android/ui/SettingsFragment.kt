@@ -15,7 +15,6 @@ import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.repo.SettingsRepo
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import javax.inject.Inject
 
 @SuppressLint("ValidFragment")

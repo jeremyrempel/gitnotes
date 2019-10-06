@@ -1,7 +1,6 @@
 package com.github.jeremyrempel.gitnotes.android.vm
 
 import com.github.jeremyrempel.gitnotes.api.GithubApi
-import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.repo.SettingsRepo
 import dagger.Module

@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.github.jeremyrempel.gitnotes.Config
-import com.github.jeremyrempel.gitnotes.android.di.AppComponent
 import com.github.jeremyrempel.gitnotes.android.di.DaggerAppComponent
 import com.github.jeremyrempel.gitnotes.android.di.ServiceModule
 import com.github.jeremyrempel.gitnotes.android.ui.AboutFragment
