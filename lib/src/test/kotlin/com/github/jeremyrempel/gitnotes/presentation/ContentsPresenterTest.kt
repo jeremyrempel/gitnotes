@@ -18,7 +18,7 @@ class ContentsPresenterTest {
         val presenter = ContentsPresenter(
             testContext,
             GithubApiFake(),
-            Fakes.Repo
+            Fakes.Settings
         )
         presenter.view = view
 
@@ -36,7 +36,7 @@ class ContentsPresenterTest {
         val presenter = ContentsPresenter(
             testContext,
             GithubApiFakeError(),
-            Fakes.Repo
+            Fakes.Settings
         )
         presenter.view = view
 

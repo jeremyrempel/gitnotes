@@ -1,7 +1,6 @@
 package com.github.jeremyrempel.gitnotes.presentation
 
 import com.github.jeremyrempel.gitnotes.api.GithubApi
-import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponse
 import com.github.jeremyrempel.gitnotes.api.data.ContentsResponseRow
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen

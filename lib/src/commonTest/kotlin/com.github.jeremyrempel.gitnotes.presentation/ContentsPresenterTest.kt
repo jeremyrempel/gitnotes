@@ -15,7 +15,7 @@ class ContentsPresenterTest {
 
         // setup
         val api = GithubApiFake()
-        val presenter = ContentsPresenter(EmptyCoroutineContext, api, Fakes.Repo)
+        val presenter = ContentsPresenter(EmptyCoroutineContext, api, Fakes.Settings)
         val viewMock = ContentsViewMock()
         presenter.view = viewMock
 
