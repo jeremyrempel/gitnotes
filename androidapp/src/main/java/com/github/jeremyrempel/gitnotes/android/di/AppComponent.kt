@@ -1,5 +1,6 @@
 package com.github.jeremyrempel.gitnotes.android.di
 
+import android.content.Context
 import com.github.jeremyrempel.gitnotes.android.factory.FactoryModule
 import com.github.jeremyrempel.gitnotes.android.factory.FragFactory
 import com.github.jeremyrempel.gitnotes.android.vm.ContentsViewModelModule
@@ -16,4 +17,5 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun fragFactory(): FragFactory
+    fun context(context: Context): Context
 }

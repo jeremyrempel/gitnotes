@@ -1,5 +1,6 @@
 package com.github.jeremyrempel.gitnotes.android.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+@SuppressLint("ValidFragment")
 class ContentsListFragment @Inject constructor(
     private val vmFactory: ViewModelProvider.Factory
 ) : Fragment() {

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import com.github.jeremyrempel.gitnotes.Config
 import com.github.jeremyrempel.gitnotes.android.di.AppComponent
 import com.github.jeremyrempel.gitnotes.android.di.DaggerAppComponent
+import com.github.jeremyrempel.gitnotes.android.di.ServiceModule
 import com.github.jeremyrempel.gitnotes.android.ui.AboutFragment
 import com.github.jeremyrempel.gitnotes.android.ui.ContentsListFragment
 import com.github.jeremyrempel.gitnotes.android.ui.SettingsFragment
@@ -29,7 +30,10 @@ class MainActivity : AppCompatActivity(), NavigationCallback,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // init dagger graph
-        val dagger: AppComponent = DaggerAppComponent.create()
+        val dagger = DaggerAppComponent
+            .builder()
+            .serviceModule(ServiceModule(applicationContext))
+            .build()
 
         supportFragmentManager.fragmentFactory = dagger.fragFactory()
 

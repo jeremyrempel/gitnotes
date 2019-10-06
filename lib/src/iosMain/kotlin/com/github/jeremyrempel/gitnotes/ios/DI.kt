@@ -3,6 +3,7 @@ package com.github.jeremyrempel.gitnotes.api
 import com.github.jeremyrempel.gitnotes.presentation.ContentsActions
 import com.github.jeremyrempel.gitnotes.presentation.ContentsPresenter
 import com.github.jeremyrempel.gitnotes.presentation.ContentsView
+import com.github.jeremyrempel.gitnotes.repo.SettingsRepo
 import io.ktor.client.HttpClient
 import kotlin.coroutines.CoroutineContext
 
@@ -20,7 +21,7 @@ fun getActions(
     coroutineContext: CoroutineContext,
     view: ContentsView,
     service: GithubApi,
-    repo: RepoInfo
+    repo: SettingsRepo
 ): ContentsActions {
     val presenter = ContentsPresenter(coroutineContext, service, repo)
     presenter.view = view
