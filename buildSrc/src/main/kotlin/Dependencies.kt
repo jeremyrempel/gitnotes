@@ -4,7 +4,7 @@ object BuildPlugins {
 
     object Versions {
         const val kotlinVersion = "1.3.50"
-        const val gradleAndroidVersion = "3.6.0-alpha09"
+        const val gradleAndroidVersion = "3.6.0-alpha12"
         const val klintVersion = "8.2.0"
         const val serialization = "0.12.0"
         const val ktor = "1.2.4"
