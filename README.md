@@ -2,7 +2,7 @@
 
 **Take Back Your Notes!**
 
-A mobile competitor to proprietary cloud based note solutions such as Evernote and One Note utilizing git and Markdown formats. All advantages of such as atomic history, brancing, merging and synchronization along the advantages of utilizing a common formatting language and cloud sync.
+A mobile competitor to proprietary cloud based note solutions such as Evernote and One Note utilizing git and Markdown formats. All advantages of *git* such as atomic history, branching, merging and synchronization along the advantages of utilizing a common formatting language and cloud sync. Edit and view notes across various computers and mobile devices.
 
 The system is broken down into 3 modules:
 
