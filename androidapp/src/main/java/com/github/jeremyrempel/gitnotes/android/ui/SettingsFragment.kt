@@ -32,25 +32,50 @@ class SettingsFragment @Inject constructor(
 //    private val viewModel: ContentsViewModel by viewModels { vmFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        view.findViewById<MaterialButton>(R.id.btn_update).apply {
-            setOnClickListener { onClickSaveButton(view) }
-        }
-
-        view.findViewById<MaterialButton>(R.id.btn_reset).apply {
-            setOnClickListener { onClickResetButton(view) }
-        }
 
         val editRepoTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_txt)
         val editRepoUserTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_username_txt)
         settingsRepo.getRepoInfo().apply {
             editRepoTxt.setText(repo)
             editRepoUserTxt.setText(user)
+        }
+
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerClickListeners()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterClickListeners()
+    }
+
+    private fun unregisterClickListeners() {
+        view?.let { view ->
+            view.findViewById<MaterialButton>(R.id.btn_update)?.apply {
+                setOnClickListener(null)
+            }
+
+            view.findViewById<MaterialButton>(R.id.btn_reset).apply {
+                setOnClickListener(null)
+            }
+        }
+    }
+
+    private fun registerClickListeners() {
+        view?.let { view ->
+            view.findViewById<MaterialButton>(R.id.btn_update)?.apply {
+                setOnClickListener { onClickSaveButton(view) }
+            }
+
+            view.findViewById<MaterialButton>(R.id.btn_reset).apply {
+                setOnClickListener { onClickResetButton(view) }
+            }
         }
     }
 

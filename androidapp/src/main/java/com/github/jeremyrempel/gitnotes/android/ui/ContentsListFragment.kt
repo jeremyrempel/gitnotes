@@ -9,14 +9,17 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.jeremyrempel.gitnotes.LogLevel
 import com.github.jeremyrempel.gitnotes.android.NavigationCallback
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.vm.ContentsViewModel
+import com.github.jeremyrempel.gitnotes.log
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
@@ -30,6 +33,7 @@ class ContentsListFragment @Inject constructor(
     private lateinit var listAdapter: ContentsResponseListAdapter
     private var navigationCallback: NavigationCallback? = null
     private val viewModel: ContentsViewModel by viewModels { vmFactory }
+    private var currentPath: String? = null
 
     private var isUpdating: Boolean by Delegates.observable(false) { _, _, isLoading ->
         loadingView.isGone = !isLoading
@@ -40,22 +44,19 @@ class ContentsListFragment @Inject constructor(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var currentPath: String? = null
         arguments?.let {
             currentPath = it.getString(ARG_PATH)
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         listAdapter = ContentsResponseListAdapter(viewModel::onSelectItem)
-        viewModel.requestData(currentPath)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         view.findViewById<RecyclerView>(R.id.recycler).apply {
             setHasFixedSize(true)
             val linearLayoutManager = LinearLayoutManager(context)
@@ -70,13 +71,21 @@ class ContentsListFragment @Inject constructor(
         }
 
         listenForChanges(viewModel)
+
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.requestData(currentPath)
     }
 
     private fun listenForChanges(viewModel: ContentsViewModel) {
-        viewModel.getData().observe(this, Observer { onUpdate(it) })
-        viewModel.isError().observe(this, Observer { onError(it) })
-        viewModel.isLoading().observe(this, Observer { isUpdating = it })
-        viewModel.navEvent().observe(this, Observer { navigateTo(it) })
+        viewModel.getData().observe(viewLifecycleOwner, Observer { onUpdate(it) })
+        viewModel.isError().observe(viewLifecycleOwner, Observer { onError(it) })
+        viewModel.isLoading().observe(viewLifecycleOwner, Observer { isUpdating = it })
+        viewModel.navEvent().observe(viewLifecycleOwner, Observer { navigateTo(it) })
     }
 
     private fun onUpdate(data: ContentsUi) {
@@ -91,7 +100,12 @@ class ContentsListFragment @Inject constructor(
     }
 
     private fun navigateTo(screen: NavScreen) {
-        navigationCallback?.navigateTo(screen)
+        // prevent fragment transactions after onSaveInstanceState
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            navigationCallback?.navigateTo(screen)
+        } else {
+            log(LogLevel.WARN, TAG, "Ignoring navigation request. Lifecycle: ${lifecycle.currentState}")
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -109,5 +123,6 @@ class ContentsListFragment @Inject constructor(
 
     companion object {
         const val ARG_PATH = "argpath"
+        const val TAG = "ContentsListFragment"
     }
 }
