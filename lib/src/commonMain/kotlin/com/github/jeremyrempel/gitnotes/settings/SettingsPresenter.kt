@@ -28,6 +28,13 @@ class SettingsPresenter(private val settingsRepo: SettingsRepo) {
         repoInfo = newRepoInfo
     }
 
+    /**
+     * This is wasteful if settingsRepo was a remote source, could retain copy and avoid
+     *
+     * On the other hand:
+     * There are only two hard things in Computer Science: cache invalidation and naming things.
+     * -- Phil Karlton
+     */
     fun requestData() {
         repoInfo = settingsRepo.get()
     }
