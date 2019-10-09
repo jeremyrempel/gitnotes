@@ -14,11 +14,10 @@ import lib
  */
 class SettingsRepoSharedPref : SettingsRepo {
     
-    func updateRepoName(username: String, repoName: String) {
-    
+    func save(repoInfo: RepoInfo) {
     }
     
-    func getRepoInfo() -> RepoInfo {
+    func get() -> RepoInfo {
         return RepoInfo(user: "jeremyrempel", repo: "gitnotestest")
     }
 }
