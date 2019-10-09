@@ -23,10 +23,6 @@ class SettingsFragment @Inject constructor(
 
     private var navigationCallback: NavigationCallback? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
@@ -87,7 +83,6 @@ class SettingsFragment @Inject constructor(
     private fun onClickResetButton(buttonView: View) = presenter.onReset()
 
     private fun onClickSaveButton(buttonView: View) {
-
         val view = requireView()
 
         val repoNameTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_txt).text.toString()
