@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jeremyrempel.gitnotes.LogLevel
-import com.github.jeremyrempel.gitnotes.android.NavigationCallback
+import com.github.jeremyrempel.gitnotes.navigation.NavigationCallback
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.android.vm.ContentsViewModel
 import com.github.jeremyrempel.gitnotes.log

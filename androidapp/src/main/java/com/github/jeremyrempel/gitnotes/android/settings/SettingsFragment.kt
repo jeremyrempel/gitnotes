@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.github.jeremyrempel.gitnotes.android.NavigationCallback
+import com.github.jeremyrempel.gitnotes.navigation.NavigationCallback
 import com.github.jeremyrempel.gitnotes.android.R
 import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen

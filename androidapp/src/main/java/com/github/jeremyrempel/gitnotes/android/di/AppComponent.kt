@@ -3,6 +3,7 @@ package com.github.jeremyrempel.gitnotes.android.di
 import android.content.Context
 import com.github.jeremyrempel.gitnotes.android.factory.FactoryModule
 import com.github.jeremyrempel.gitnotes.android.factory.FragFactory
+import com.github.jeremyrempel.gitnotes.android.settings.SettingsModule
 import com.github.jeremyrempel.gitnotes.android.vm.ContentsViewModelModule
 import dagger.Component
 import javax.inject.Singleton
@@ -11,8 +12,9 @@ import javax.inject.Singleton
 @Component(
     modules = [
         ServiceModule::class,
+        FactoryModule::class,
         ContentsViewModelModule::class,
-        FactoryModule::class
+        SettingsModule::class
     ]
 )
 interface AppComponent {

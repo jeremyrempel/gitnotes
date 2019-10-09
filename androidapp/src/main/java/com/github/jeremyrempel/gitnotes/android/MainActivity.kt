@@ -20,6 +20,7 @@ import com.github.jeremyrempel.gitnotes.android.settings.SettingsFragment
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
 import com.google.android.material.navigation.NavigationView
+import com.github.jeremyrempel.gitnotes.navigation.NavigationCallback
 
 class MainActivity : AppCompatActivity(), NavigationCallback,
     NavigationView.OnNavigationItemSelectedListener {

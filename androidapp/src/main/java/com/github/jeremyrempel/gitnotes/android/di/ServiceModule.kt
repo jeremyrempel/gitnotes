@@ -1,7 +1,6 @@
 package com.github.jeremyrempel.gitnotes.android.di
 
 import android.content.Context
-import com.github.jeremyrempel.gitnotes.android.settings.SettingsModule
 import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.GithubService
 import dagger.Module
@@ -12,7 +11,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
-@Module(includes = [SettingsModule::class])
+@Module
 class ServiceModule(private val ctx: Context) {
 
     @Provides
