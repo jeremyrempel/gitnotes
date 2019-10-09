@@ -16,7 +16,7 @@ import com.github.jeremyrempel.gitnotes.android.di.DaggerAppComponent
 import com.github.jeremyrempel.gitnotes.android.di.ServiceModule
 import com.github.jeremyrempel.gitnotes.android.ui.AboutFragment
 import com.github.jeremyrempel.gitnotes.android.ui.ContentsListFragment
-import com.github.jeremyrempel.gitnotes.android.ui.SettingsFragment
+import com.github.jeremyrempel.gitnotes.android.settings.SettingsFragment
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen.List
 import com.google.android.material.navigation.NavigationView

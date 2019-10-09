@@ -1,10 +1,10 @@
 package com.github.jeremyrempel.gitnotes
 
 object Constants {
-    val DEFAULT_REPO = "gitnotestest"
-    val DEFAULT_REPO_USERNAME = "jeremyrempel"
+    const val DEFAULT_REPO_NAME = "gitnotestest"
+    const val DEFAULT_REPO_USERNAME = "jeremyrempel"
 
-    val SHARED_PREF_NAME = "gitnotes"
-    val REPO_NAME_FIELD = "reponame"
-    val REPO_USERNAME_FIELD = "username"
+    const val SHARED_PREF_NAME = "gitnotes"
+    const val REPO_NAME_FIELD = "reponame"
+    const val REPO_USERNAME_FIELD = "username"
 }

@@ -1,4 +1,4 @@
-package com.github.jeremyrempel.gitnotes.android.ui
+package com.github.jeremyrempel.gitnotes.android.settings
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,20 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.github.jeremyrempel.gitnotes.Constants
 import com.github.jeremyrempel.gitnotes.android.NavigationCallback
 import com.github.jeremyrempel.gitnotes.android.R
+import com.github.jeremyrempel.gitnotes.api.RepoInfo
 import com.github.jeremyrempel.gitnotes.navigation.NavScreen
-import com.github.jeremyrempel.gitnotes.repo.SettingsRepo
+import com.github.jeremyrempel.gitnotes.settings.SettingsPresenter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import javax.inject.Inject
 
 @SuppressLint("ValidFragment")
 class SettingsFragment @Inject constructor(
-    private val vmFactory: ViewModelProvider.Factory,
-    private val settingsRepo: SettingsRepo
+    private val presenter: SettingsPresenter
 ) : Fragment(R.layout.fragment_settings) {
 
     private var navigationCallback: NavigationCallback? = null
@@ -29,29 +27,21 @@ class SettingsFragment @Inject constructor(
         super.onCreate(savedInstanceState)
     }
 
-//    private val viewModel: ContentsViewModel by viewModels { vmFactory }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-
-
-        val editRepoTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_txt)
-        val editRepoUserTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_username_txt)
-        settingsRepo.getRepoInfo().apply {
-            editRepoTxt.setText(repo)
-            editRepoUserTxt.setText(user)
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-        registerClickListeners()
+        registerListeners()
+
+        // we could do this automatically when listener registered but less magic
+        presenter.requestData()
     }
 
     override fun onStop() {
         super.onStop()
+
         unregisterClickListeners()
     }
 
@@ -65,19 +55,48 @@ class SettingsFragment @Inject constructor(
                 setOnClickListener(null)
             }
         }
+
+        presenter.dataCallback = null
+        presenter.navCallback = null
     }
 
-    private fun registerClickListeners() {
+    /**
+     * Stop listening, avoid delayed clicks occurring after stop
+     */
+    private fun registerListeners() {
         view?.let { view ->
             view.findViewById<MaterialButton>(R.id.btn_update)?.apply {
-                setOnClickListener { onClickSaveButton(view) }
+                setOnClickListener(::onClickSaveButton)
             }
 
             view.findViewById<MaterialButton>(R.id.btn_reset).apply {
-                setOnClickListener { onClickResetButton(view) }
+                setOnClickListener(::onClickResetButton)
             }
         }
+
+        presenter.dataCallback = {
+            val editRepoTxt = view?.findViewById<TextInputEditText>(R.id.edit_repo_txt)
+            val editRepoUserTxt = view?.findViewById<TextInputEditText>(R.id.edit_repo_username_txt)
+
+            editRepoTxt?.setText(it.repo)
+            editRepoUserTxt?.setText(it.user)
+        }
+        presenter.navCallback = { navigateTo(it) }
     }
+
+    private fun onClickResetButton(buttonView: View) = presenter.onReset()
+
+    private fun onClickSaveButton(buttonView: View) {
+
+        val view = requireView()
+
+        val repoNameTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_txt).text.toString()
+        val editRepoUserTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_username_txt).text.toString()
+
+        presenter.onSave(RepoInfo(editRepoUserTxt, repoNameTxt))
+    }
+
+    private fun navigateTo(navScreen: NavScreen) = navigationCallback?.navigateTo(navScreen)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -90,22 +109,5 @@ class SettingsFragment @Inject constructor(
     override fun onDetach() {
         super.onDetach()
         navigationCallback = null
-    }
-
-    private fun onClickResetButton(view: View) {
-        val repoNameTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_txt)
-        repoNameTxt.setText(Constants.DEFAULT_REPO)
-
-        val editRepoUserTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_username_txt)
-        editRepoUserTxt.setText(Constants.DEFAULT_REPO_USERNAME)
-    }
-
-    private fun onClickSaveButton(view: View) {
-        val repoNameTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_txt)
-        val editRepoUserTxt = view.findViewById<TextInputEditText>(R.id.edit_repo_username_txt)
-
-        settingsRepo.updateRepoName(repoNameTxt.text.toString(), editRepoUserTxt.text.toString())
-
-        navigationCallback?.navigateTo(NavScreen.List("/", false))
     }
 }

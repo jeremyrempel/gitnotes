@@ -29,7 +29,7 @@ class ContentsPresenter(
     private fun updateData(path: String? = null) {
         view.isUpdating = true
 
-        val repoInfo = settingsRepo.getRepoInfo()
+        val repoInfo = settingsRepo.get()
 
         launch(coroutineContext) {
             when (val response = api.getContents(repoInfo, path)) {

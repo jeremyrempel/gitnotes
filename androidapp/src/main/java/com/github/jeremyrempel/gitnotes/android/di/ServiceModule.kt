@@ -1,10 +1,9 @@
 package com.github.jeremyrempel.gitnotes.android.di
 
 import android.content.Context
-import com.github.jeremyrempel.gitnotes.android.repo.SettingsRepoSharedPref
+import com.github.jeremyrempel.gitnotes.android.settings.SettingsModule
 import com.github.jeremyrempel.gitnotes.api.GithubApi
 import com.github.jeremyrempel.gitnotes.api.GithubService
-import com.github.jeremyrempel.gitnotes.repo.SettingsRepo
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient
@@ -13,8 +12,12 @@ import javax.inject.Named
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
-@Module
+@Module(includes = [SettingsModule::class])
 class ServiceModule(private val ctx: Context) {
+
+    @Provides
+    @Singleton
+    fun providesAppCtx(): Context = ctx
 
     @Provides
     @Singleton
@@ -29,12 +32,6 @@ class ServiceModule(private val ctx: Context) {
     @Singleton
     fun providesGitHubApi(client: HttpClient, @Named("APIURL") apiUrl: String): GithubApi {
         return GithubService(client, apiUrl)
-    }
-
-    @Provides
-    @Singleton
-    fun providesSettingsRepo(): SettingsRepo {
-        return SettingsRepoSharedPref(ctx)
     }
 
     @Provides

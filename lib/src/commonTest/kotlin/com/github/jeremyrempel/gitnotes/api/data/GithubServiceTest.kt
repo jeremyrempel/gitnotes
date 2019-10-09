@@ -1,6 +1,6 @@
 package com.github.jeremyrempel.gitnotes.api.data
 
-import com.github.jeremyrempel.gitnotes.api.Fakes
+import com.github.jeremyrempel.gitnotes.api.mock.Fakes
 import com.github.jeremyrempel.gitnotes.api.GithubService
 import com.github.jeremyrempel.gitnotes.runBlockingTest
 import io.ktor.client.HttpClient

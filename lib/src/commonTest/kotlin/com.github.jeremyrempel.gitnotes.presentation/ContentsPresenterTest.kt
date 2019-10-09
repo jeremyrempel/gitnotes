@@ -1,6 +1,6 @@
 package com.github.jeremyrempel.gitnotes.presentation
 
-import com.github.jeremyrempel.gitnotes.api.Fakes
+import com.github.jeremyrempel.gitnotes.api.mock.Fakes
 import com.github.jeremyrempel.gitnotes.api.GithubApiFake
 import com.github.jeremyrempel.gitnotes.presentation.mock.ContentsViewMock
 import com.github.jeremyrempel.gitnotes.runBlockingTest
