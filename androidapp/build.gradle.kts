@@ -96,7 +96,7 @@ dependencies {
     testImplementation("androidx.test:runner:1.3.0-alpha02")
     testImplementation("androidx.test:rules:1.3.0-alpha02")
     testImplementation("androidx.test.ext:junit:1.1.3-alpha04")
-    testImplementation("org.robolectric:robolectric:4.3")
+    testImplementation("org.robolectric:robolectric:4.5.1")
 }
 
 tasks.withType(KotlinCompile::class.java).all {
