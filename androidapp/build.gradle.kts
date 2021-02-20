@@ -59,7 +59,7 @@ kotlin {
 dependencies {
     implementation(Libraries.kotlinStdLib)
     implementation(project(":lib"))
-    implementation("androidx.recyclerview:recyclerview:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
 
     Libraries.Android.apply {
 
