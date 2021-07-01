@@ -90,7 +90,7 @@ dependencies {
 
     compileOnly("javax.annotation:jsr250-api:1.0")
 
-    testImplementation("androidx.test.espresso:espresso-core:3.3.0-alpha02")
+    testImplementation("androidx.test.espresso:espresso-core:3.4.0")
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.test:core:1.2.1-alpha02")
     testImplementation("androidx.test:runner:1.3.0-alpha02")
