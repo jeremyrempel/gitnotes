@@ -94,7 +94,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.test:core:1.2.1-alpha02")
     testImplementation("androidx.test:runner:1.3.0-alpha02")
-    testImplementation("androidx.test:rules:1.4.0-alpha04")
+    testImplementation("androidx.test:rules:1.4.0")
     testImplementation("androidx.test.ext:junit:1.1.3-alpha04")
     testImplementation("org.robolectric:robolectric:4.5.1")
 }
