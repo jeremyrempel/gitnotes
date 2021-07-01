@@ -88,7 +88,7 @@ dependencies {
         debugImplementation(fragmentTesting)
     }
 
-    compileOnly("javax.annotation:jsr250-api:1.0")
+    compileOnly("javax.annotation:jsr250-api:1.0-20050927.133100")
 
     testImplementation("androidx.test.espresso:espresso-core:3.4.0")
     testImplementation("junit:junit:4.13.2")
